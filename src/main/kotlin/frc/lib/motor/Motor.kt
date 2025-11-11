@@ -66,4 +66,10 @@ interface Motor {
 
     /** Do not call this function directly! Call autoPeriodic instead! */
     fun simulationPeriodic() {}
+
+    /** Follow the same type of motor */
+    fun setFollowSame(follow: Motor) {} // TODO: REMOVE
+
+    /** Require Inversion */
+    fun forceInvert(invert: Boolean) {} // TODO: REMOVE
 }
