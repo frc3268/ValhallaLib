@@ -30,17 +30,4 @@ class TankDriveIO(
     fun setVelocity(velocity: Double) {
         setVelocity(velocity, velocity)
     }
-
-    fun turnLeft(velocity: Double) {
-        setVelocity(-velocity, velocity)
-    }
-
-    fun turnRight(velocity: Double) {
-        setVelocity(velocity, -velocity)
-    }
-
-    fun stop() {
-        left1.stop()
-        right1.stop()
-    }
 }
