@@ -1,18 +1,24 @@
 package frc.lib.motor
 
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj.motorcontrol.Talon
+import edu.wpi.first.wpilibj.Encoder;
 
-class AndyMarkTalonMotor(override val id: Int, val motor: Talon) : Motor {
+class AndyMarkTalonMotor(
+    override val id: Int,
+    val motor: Talon,
+    val pid: PIDController,
+) : Motor {
     override fun setVoltage(voltage: Double) {
         motor.voltage = voltage;
     }
 
     override fun setPosition(position: Double) {
-        TODO("Not yet implemented")
+        //motor.set(pid.calculate());
     }
 
     override fun setVelocity(velocity: Double) {
-        TODO("Not yet implemented")
+        motor.set(velocity);
     }
 
     override fun getVelocityRPMMeasurement(): Double {
@@ -49,7 +55,7 @@ class AndyMarkTalonMotor(override val id: Int, val motor: Talon) : Motor {
 
     /** Follow the same type of motor */
     override fun setFollowSame(follow: Motor) {
-        motor.addFollower((follow as AndyMarkTalonMotor).motor)
+        (follow as? AndyMarkTalonMotor)?.let { motor.addFollower((it).motor) }
     } // TODO: REMOVE
 
     /** Require Inversion */

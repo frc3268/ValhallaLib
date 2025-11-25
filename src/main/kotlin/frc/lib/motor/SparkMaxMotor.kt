@@ -37,7 +37,6 @@ class SparkMaxMotor(
         motorClosedLoop.setReference(velocity, ControlType.kVelocity, ClosedLoopSlot.kSlot1)
     }
 
-
     override fun getVelocityRPMMeasurement(): Double {
         return motor.getEncoder().velocity
     }

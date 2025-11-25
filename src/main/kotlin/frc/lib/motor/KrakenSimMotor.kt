@@ -82,7 +82,7 @@ class KrakenSimMotor(
 
     override fun reset() {
         //not totally sure if this works as intended
-        //as intended means that it just changes the value reported by encoder
+        // means that it just changes the value reported by encoder
         motor.setPosition(Angle.ofRelativeUnits(0.0, Units.Degree))
     }
 
@@ -93,7 +93,7 @@ class KrakenSimMotor(
 
         // Use the motor voltage to calculate new position and velocity
         // Using WPILib's DCMotorSim class for physics simulation
-        motorDC.setInputVoltage(motorVoltage);
+        motorDC.inputVoltage = motorVoltage;
         motorDC.update(0.020); // Assume 20 ms loop time
 
         // I don't know what these funny numbers mean. TODO: Can someone please fill these in?
