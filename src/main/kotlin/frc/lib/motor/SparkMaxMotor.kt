@@ -10,7 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig
 // We should use this class more fr fr
 // Also not use as much PiD Controllers
 class SparkMaxMotor(
-    override val id: Int,
+    val id: Int,
     var motorConfig: SparkMaxConfig = SparkMaxConfig()
 ) : Motor {
 
@@ -25,7 +25,7 @@ class SparkMaxMotor(
         motor.configure(motorConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kNoPersistParameters)
     }
 
-    override fun setVoltage(voltage: Double) {
+    override fun setVoltage(voltage: Double, arbitraryFeedForward: Double) {
         motor.setVoltage(voltage)
     }
 
@@ -63,5 +63,14 @@ class SparkMaxMotor(
 
     override fun reset() {
         motor.encoder.position = 0.0
+    }
+
+    override fun forceInvert() {
+        motorConfig.inverted(true);
+
+    }
+
+    override fun follow(motor: Motor) {
+        TODO("Not yet implemented")
     }
 }

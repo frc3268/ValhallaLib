@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim
 
 
 class KrakenSimMotor(
-    override val id: Int,
+    val id: Int,
     val motorConfig: TalonFXConfiguration = TalonFXConfiguration(),
     var positionSlot: Slot0Configs = Slot0Configs(),
     var velocitySlot: Slot1Configs = Slot1Configs()
@@ -43,7 +43,7 @@ class KrakenSimMotor(
         motor.configurator.apply(velocitySlot)
     }
 
-    override fun setVoltage(voltage: Double){
+    override fun setVoltage(voltage: Double, arbitraryFeedForward: Double) {
         motor.setVoltage(voltage)
     }
 
@@ -84,6 +84,14 @@ class KrakenSimMotor(
         //not totally sure if this works as intended
         // means that it just changes the value reported by encoder
         motor.setPosition(Angle.ofRelativeUnits(0.0, Units.Degree))
+    }
+
+    override fun forceInvert() {
+        TODO("Not yet implemented")
+    }
+
+    override fun follow(motor: Motor) {
+        TODO("Not yet implemented")
     }
 
     override fun simulationPeriodic() {

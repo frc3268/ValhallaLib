@@ -11,7 +11,7 @@ import edu.wpi.first.units.measure.Angle
 
 
 class KrakenMotor(
-    override val id: Int,
+    val id: Int,
     val motorConfig: TalonFXConfiguration = TalonFXConfiguration(),
     var positionSlot: Slot0Configs = Slot0Configs(),
     var velocitySlot: Slot1Configs = Slot1Configs()
@@ -28,8 +28,8 @@ class KrakenMotor(
         motor.configurator.apply(velocitySlot)
     }
 
-    override fun setVoltage(voltage: Double){
-        motor.setVoltage(voltage)
+    override fun setVoltage(voltage: Double, arbitraryFeedForward: Double) {
+        TODO("Not yet implemented")
     }
 
     override fun setPosition(position: Double) {
@@ -69,5 +69,13 @@ class KrakenMotor(
         //not totally sure if this works as intended
         //as intended means that it just changes the value reported by encoder
         motor.setPosition(Angle.ofRelativeUnits(0.0, Units.Degree))
+    }
+
+    override fun forceInvert() {
+        TODO("Finish this")
+    }
+
+    override fun follow(motor: Motor) {
+        TODO("Not yet implemented")
     }
 }

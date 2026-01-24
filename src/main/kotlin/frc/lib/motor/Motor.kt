@@ -12,15 +12,15 @@ import frc.robot.Constants
 interface Motor {
 
     /** ID of the motor. Should be unique for each motor */
-    val id: Int
+    // val id: Int
 
     /** Should the motor be reversed? */
-//    var inverse: Boolean
+    // var inverse: Boolean
 
     /** Run the motor at the specified [voltage]
      * @param[voltage] Specified voltage to run motor
      */
-    fun setVoltage(voltage: Double)
+    fun setVoltage(voltage: Double, arbitraryFeedForward: Double = 0.0)
 
     /** Move the motor to the specified [position]
      * @param[position] The position to set the motor to
@@ -51,6 +51,10 @@ interface Motor {
     fun close()
     /** Zero everything **/
     fun reset()
+    /** Should this motor be forced to invert?*/
+    fun forceInvert()
+    /** Sets this motor to follow [motor].*/
+    fun follow(motor: Motor)
 
     /** Calls a periodic function based off of current constants state */
     fun autoPeriodic() {
@@ -59,17 +63,15 @@ interface Motor {
             Constants.States.SIM -> simulationPeriodic()
             Constants.States.REPLAY -> simulationPeriodic()
         }
+        allPeriodic();
     }
+
+    /** Do not call this function directly! Call autoPeriodic instead! */
+    fun allPeriodic()  {}
 
     /** Do not call this function directly! Call autoPeriodic instead! */
     fun realPeriodic() {}
 
     /** Do not call this function directly! Call autoPeriodic instead! */
     fun simulationPeriodic() {}
-
-    /** Follow the same type of motor */
-    fun setFollowSame(follow: Motor) {} // TODO: REMOVE
-
-    /** Require Inversion */
-    fun forceInvert(invert: Boolean) {} // TODO: REMOVE
 }

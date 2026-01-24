@@ -1,7 +1,5 @@
 package frc.robot
 
-import frc.robot.Constants.Levels.LEVEL0
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -43,21 +41,7 @@ object Constants {
     const val TROUBLESHOOTING_TAB = "Troubleshooting"
     const val CALIBRATION_TAB = "Calibration"
 
-
-    /** How far up the [ElevatorSubsystem] should go to, as an enum corresponding to each of the reef's levels
-     *
-     * [LEVEL0] Should be the elevators lowest possible point / resting point
-     */
-    enum class Levels(val lvl: Double) {
-        LEVEL0(0.0),
-        LEVEL1(0.5),
-        LEVEL2(-22.0),
-        LEVEL3(-32.0),
-        LEVEL4(-50.0)
-    }
-
-
-    enum class States{REAL, SIM, REPLAY}
+    enum class States{ REAL, SIM, REPLAY }
 
     /** Current state of the robot. Should be automatically set. */
     var mode = States.SIM
