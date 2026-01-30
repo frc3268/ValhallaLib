@@ -57,7 +57,7 @@ class Camera(name: String) {
 
         } catch (e: IOException) {
             DriverStation.reportError("AprilTag: Failed to Load", e.stackTrace)
-            // !add some way to lock down apriltage features after this
+            // !add some way to lock down apriltag features after this
         }
 
         if (Constants.mode == Constants.States.SIM) {
