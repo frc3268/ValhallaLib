@@ -1,6 +1,12 @@
 package frc.lib.motor
 
 import edu.wpi.first.math.controller.PIDController
+import edu.wpi.first.units.CurrentUnit
+import edu.wpi.first.units.Units
+import edu.wpi.first.units.Units.*
+import edu.wpi.first.units.measure.LinearVelocity
+import edu.wpi.first.units.measure.Velocity
+import edu.wpi.first.units.measure.Voltage
 import frc.robot.Constants
 
 /** ***Easy Cross Motor API Interface.***
@@ -17,20 +23,26 @@ interface Motor {
     /** Should the motor be reversed? */
     // var inverse: Boolean
 
+    val encoder: MotorEncoder
+
+    /** Should we invert the motor output?*/
+    var invert: Boolean
+
     /** Run the motor at the specified [voltage]
      * @param[voltage] Specified voltage to run motor
      */
-    fun setVoltage(voltage: Double, arbitraryFeedForward: Double = 0.0)
+    fun setVoltage(voltage: Voltage, arbitraryFeedForward: Voltage = Volts.of(0.0))
 
     /** Move the motor to the specified [position]
      * @param[position] The position to set the motor to
      */
+    // TODO: use units instead of generic position
     fun setPosition(position: Double)
 
     /** Move the motor to the specified [velocity]
      * @param[velocity] Specified velocity to set motor to
      */
-    fun setVelocity(velocity: Double)
+    fun setVelocity(velocity: LinearVelocity)
 
     /** Get the velocity in rotations per minute
      * @return Current velocity in RPM
@@ -38,7 +50,7 @@ interface Motor {
     fun getVelocityRPMMeasurement(): Double
     fun getAppliedVoltage(): Double
     fun getPositionDegreeMeasurement(): Double
-    fun getCurrentAmps(): DoubleArray
+    fun getCurrentAmps(): CurrentUnit
 
     /** Configure the motor.
      *
@@ -54,7 +66,7 @@ interface Motor {
     /** Should this motor be forced to invert?*/
     fun forceInvert()
     /** Sets this motor to follow [motor].*/
-    fun follow(motor: Motor)
+    fun <T : Motor> follow(motor: T): Boolean
 
     /** Calls a periodic function based off of current constants state */
     fun autoPeriodic() {

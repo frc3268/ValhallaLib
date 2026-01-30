@@ -56,10 +56,6 @@ class AlignToAprilTagCommand(val drive:SwerveDriveBase, val onRight: Supplier<Bo
 
             )
         }
-
-
-
-
     }
 
     override fun isFinished(): Boolean {
