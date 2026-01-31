@@ -1,6 +1,7 @@
 # ValhallaLib
-*repo for ValhallaLib, FRC team 3268's robot code library*
 [![Java CI with Gradle](https://github.com/frc3268/ValhallaLib/actions/workflows/gradle.yml/badge.svg)](https://github.com/frc3268/ValhallaLib/actions/workflows/gradle.yml)
+
+*repo for ValhallaLib, FRC team 3268's robot code library*
 
 **Features** swerve-drive code, camera code, autonomous code, and dashboard code
 
