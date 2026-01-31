@@ -28,29 +28,29 @@ _But what does each part do?_
 class SwerveModule(val moduleConstants: SwerveDriveConstants.ModuleConstants) {
 
     //shuffleboard
-    private val ShuffleboardTab = Shuffleboard.getTab("Swerve Module" + (moduleConstants.MODULE_NUMBER))
+    private val ShuffleboardTab = Shuffleboard.getTab("Swerve Module" + (moduleConstants.moduleNumber))
     val setPointEntry:GenericEntry = ShuffleboardTab.add("Setpoint", 0.0).withWidget(BuiltInWidgets.kEncoder).withProperties(mapOf("Min" to 0.0, "Max" to 360.0)).entry
 
 
-    private val driveMotor:CANSparkMax = CANSparkMax(moduleConstants.DRIVE_MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushless)
-    private val angleMotor:CANSparkMax = CANSparkMax(moduleConstants.ANGLE_MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushless)
+    private val driveMotor:CANSparkMax = CANSparkMax(moduleConstants.drievMotorId, CANSparkMaxLowLevel.MotorType.kBrushless)
+    private val angleMotor:CANSparkMax = CANSparkMax(moduleConstants.angleMotorId, CANSparkMaxLowLevel.MotorType.kBrushless)
 
     private val driveEncoder:RelativeEncoder = driveMotor.encoder
     private val angleEncoder:RelativeEncoder = angleMotor.encoder
 
-    private val absoluteEncoder:AnalogEncoder = AnalogEncoder(moduleConstants.ENCODER_ID)
+    private val absoluteEncoder:AnalogEncoder = AnalogEncoder(moduleConstants.encoderId)
 
-    private var turnController:PIDController = moduleConstants.PID_CONTROLLER
+    private var turnController:pidController = moduleConstants.pidController
 
     init {
-        absoluteEncoder.distancePerRotation = SwerveDriveConstants.EncoderConsts.POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION
-        absoluteEncoder.positionOffset = moduleConstants.ANGLE_OFFSET.degrees
-        driveEncoder.positionConversionFactor = SwerveDriveConstants.DriveMotorConsts.POSITION_CONVERSION_FACTOR_METERS_PER_ROTATION
-        driveEncoder.velocityConversionFactor = SwerveDriveConstants.DriveMotorConsts.VELOCITY_CONVERSION_FACTOR_METERS_PER_SECOND
-        angleEncoder.positionConversionFactor = SwerveDriveConstants.AngleMotorConsts.POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION
+        absoluteEncoder.distancePerRotation = SwerveDriveConstants.EncoderConsts.positionConversionFactorMetersPerRotation
+        absoluteEncoder.positionOffset = moduleConstants.angleOffset.degrees
+        driveEncoder.positionConversionFactor = SwerveDriveConstants.DriveMotorConsts.positionConversionFactorMetersPerRotation
+        driveEncoder.velocityConversionFactor = SwerveDriveConstants.DriveMotorConsts.velocityConversionFactorMetersPerSecond
+        angleEncoder.positionConversionFactor = SwerveDriveConstants.AngleMotorConsts.positionConversionFactorDegreesPerRotation
 
-        driveMotor.inverted = moduleConstants.DRIVE_MOTOR_REVERSED
-        angleMotor.inverted = moduleConstants.ANGLE_MOTOR_REVERSED
+        driveMotor.inverted = moduleConstants.driveMotorReversed
+        angleMotor.inverted = moduleConstants.angleMotorReversed
 
         driveMotor.setOpenLoopRampRate(0.9)
         angleMotor.setOpenLoopRampRate(0.9)
@@ -72,7 +72,7 @@ fun resetToAbsolute(){
         driveEncoder.position = 0.0
         angleEncoder.position = getAbsoluteEncoderMeasurement().degrees
     }
-    private fun getAbsoluteEncoderMeasurement() : Rotation2d = ((absoluteEncoder.absolutePosition * 360.0) + moduleConstants.ANGLE_OFFSET.degrees).rotation2dFromDeg()
+    private fun getAbsoluteEncoderMeasurement() : Rotation2d = ((absoluteEncoder.absolutePosition * 360.0) + moduleConstants.angleOffset.degrees).rotation2dFromDeg()
     fun getState() : SwerveModuleState = SwerveModuleState(driveEncoder.velocity, scopeAngle(angleEncoder.position.rotation2dFromDeg()))
     fun getPosition() : SwerveModulePosition = SwerveModulePosition(driveEncoder.position, scopeAngle(angleEncoder.position.rotation2dFromDeg()))
 

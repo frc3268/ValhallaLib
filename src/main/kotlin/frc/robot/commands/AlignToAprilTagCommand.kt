@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj2.command.Command
 import frc.lib.rotation2dFromDeg
 import frc.lib.swerve.SwerveDriveBase
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND
+import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.maxAngularVelocityDegreesPerSecond
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.thetaPIDController
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.xPIDController
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.yPIDController
@@ -50,7 +50,7 @@ class AlignToAprilTagCommand(val drive:SwerveDriveBase, val onRight: Supplier<Bo
                     -yPIDController.calculate(targetDelta.y, 0.0),
                     -thetaPIDController.calculate(targetDelta.rotation.degrees,
                         0.0
-                    ) * MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND / 2,
+                    ) * maxAngularVelocityDegreesPerSecond / 2,
                     true
                 )
 

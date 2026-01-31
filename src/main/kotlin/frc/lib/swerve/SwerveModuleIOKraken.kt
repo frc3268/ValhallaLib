@@ -18,16 +18,16 @@ import kotlin.math.IEEErem
 
 class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConstants) : SwerveModuleIO {
 
-    private val driveMotor = TalonFX(moduleConstants.DRIVE_MOTOR_ID, "rio")
-    private val angleMotor = TalonFX(moduleConstants.ANGLE_MOTOR_ID,"rio")
+    private val driveMotor = TalonFX(moduleConstants.driveMotorId, "rio")
+    private val angleMotor = TalonFX(moduleConstants.angleMotorId,"rio")
 
-    override val turnPIDController: PIDController = moduleConstants.PID_CONTROLLER
+    override val turnPIDController: PIDController = moduleConstants.pidController
 
 
-    private val absoluteEncoder = AnalogEncoder(moduleConstants.ENCODER_ID)
+    private val absoluteEncoder = AnalogEncoder(moduleConstants.encoderId)
 
     // Gear ratios for SDS MK4i L2, adjust as necessary
-    private val DRIVE_GEAR_RATIO: Double = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0)
+    private val driveGearRatio: Double = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0)
 
 
     val dconfig = TalonFXConfiguration()
@@ -35,17 +35,17 @@ class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConst
 
     init {
                 dconfig.Feedback.SensorToMechanismRatio=
-                    SwerveDriveConstants.DriveMotor.POSITION_CONVERSION_FACTOR_METERS_PER_ROTATION
+                    SwerveDriveConstants.DriveMotor.positionConversionFactorMetersPerRotation
                 tconfig.Feedback.SensorToMechanismRatio =
-                    SwerveDriveConstants.AngleMotor.POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION
+                    SwerveDriveConstants.AngleMotor.positionConversionFactorDegreesPerRotation
 
-                dconfig.MotorOutput.Inverted = if (moduleConstants.DRIVE_MOTOR_REVERSED) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
-                tconfig.MotorOutput.Inverted =  if (moduleConstants.ANGLE_MOTOR_REVERSED) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
+                dconfig.MotorOutput.Inverted = if (moduleConstants.driveMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
+                tconfig.MotorOutput.Inverted =  if (moduleConstants.angleMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
 
                 dconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
                 tconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
-//                dconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS
-//                tconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS
+//                dconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.openLoopRampRateSeconds
+//                tconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.openLoopRampRateSeconds
 
                 driveMotor.position.setUpdateFrequency(50.0, 15.0)
                 //todo: fix? below
@@ -67,7 +67,7 @@ class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConst
         inputs.driveVelocityMetersPerSec =
             -driveMotor.velocity.valueAsDouble
         inputs.turnAbsolutePosition =
-            ((absoluteEncoder.get()  * 360.0) + moduleConstants.ANGLE_OFFSET.degrees).rotation2dFromDeg()
+            ((absoluteEncoder.get()  * 360.0) + moduleConstants.angleOffset.degrees).rotation2dFromDeg()
         inputs.turnPosition =
             (((inputs.turnAbsolutePosition.degrees).IEEErem(360.0)).rotation2dFromDeg())
         inputs.turnVelocityRadPerSec = (
@@ -97,6 +97,6 @@ class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConst
 
     override fun reset() {
         driveMotor.setPosition(0.0)
-        angleMotor.setPosition((absoluteEncoder.get() * 360.0) + moduleConstants.ANGLE_OFFSET.degrees)
+        angleMotor.setPosition((absoluteEncoder.get() * 360.0) + moduleConstants.angleOffset.degrees)
     }
 }

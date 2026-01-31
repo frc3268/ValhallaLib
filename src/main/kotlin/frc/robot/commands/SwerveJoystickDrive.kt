@@ -33,7 +33,7 @@ class SwerveJoystickDrive(
         /* Get Values, Deadband, Convert to speeds */
         val xSpeed: Double = sigmoid(MathUtil.applyDeadband(translationX.asDouble, Constants.OperatorConstants.STICK_DEADBAND))
         val ySpeed: Double = sigmoid(MathUtil.applyDeadband(translationY.asDouble, Constants.OperatorConstants.STICK_DEADBAND))
-        val turnSpeed: Double = MathUtil.applyDeadband(rotation.asDouble, Constants.OperatorConstants.STICK_DEADBAND) * SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND
+        val turnSpeed: Double = MathUtil.applyDeadband(rotation.asDouble, Constants.OperatorConstants.STICK_DEADBAND) * SwerveDriveConstants.DrivetrainConsts.maxAngularVelocityDegreesPerSecond
 
         /* Drive */
         drive.setModuleStates(drive.constructTeleopModuleStatesFromChassisSpeeds(xSpeed,ySpeed,turnSpeed,fieldOriented.asBoolean))

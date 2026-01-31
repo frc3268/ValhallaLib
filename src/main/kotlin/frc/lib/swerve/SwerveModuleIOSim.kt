@@ -39,8 +39,8 @@ class SwerveModuleIOSim(val index: Int) : SwerveModuleIO {
     override val turnPIDController: PIDController = PIDController(0.009, 0.0, 0.0)
 
     override fun updateInputs(inputs: ModuleIOInputs) {
-        driveSim.update(LOOP_PERIOD_SECS)
-        turnSim.update(LOOP_PERIOD_SECS)
+        driveSim.update(loopPeriodSecs)
+        turnSim.update(loopPeriodSecs)
 
         //FIX
         inputs.drivePositionMeters = inputs.drivePositionMeters + driveSim.angularVelocityRadPerSec * 0.002
@@ -75,6 +75,6 @@ class SwerveModuleIOSim(val index: Int) : SwerveModuleIO {
     }
 
     companion object {
-        private const val LOOP_PERIOD_SECS = 0.02
+        private const val loopPeriodSecs = 0.02
     }
 }
