@@ -22,7 +22,7 @@ import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.rotation2dFromDeg
 import frc.lib.rotation2dFromRad
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.maxSpeedMetersPerSecond
+import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.MAX_SPEED_METERS_PER_SECOND
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.kinematics
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.thetaPIDController
 import frc.robot.Constants
@@ -37,11 +37,11 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
     private val modules: List<SwerveModule> =
         when (Constants.mode){
             Constants.States.REAL -> {
-                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOKraken(swerveMod),swerveMod.moduleNumber) }
+                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOKraken(swerveMod),swerveMod.MODULE_NUMBER) }
             }
             Constants.States.REPLAY -> {
                 SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(object: SwerveModuleIO {
-                    override val turnPIDController: PIDController = swerveMod.pidController
+                    override val turnPIDController: PIDController = swerveMod.PID_CONTROLLER
                     override fun updateInputs(inputs: SwerveModuleIO.ModuleIOInputs) {
                         //no
                     }
@@ -65,10 +65,10 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
                     override fun reset() {
                         //no
                     }
-                } ,swerveMod.moduleNumber) }
+                } ,swerveMod.MODULE_NUMBER) }
             }
             Constants.States.SIM -> {
-                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOSim(swerveMod.moduleNumber),swerveMod.moduleNumber) }
+                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOSim(swerveMod.MODULE_NUMBER),swerveMod.MODULE_NUMBER) }
             }
         }
     private val gyro = when (Constants.mode){
@@ -192,7 +192,7 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
     fun setModuleStates(desiredStates: Array<SwerveModuleState>) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates,
-            maxSpeedMetersPerSecond,
+            MAX_SPEED_METERS_PER_SECOND
         )
 
         for (mod in modules) {
