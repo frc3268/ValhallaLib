@@ -6,6 +6,8 @@ import kotlin.math.abs
 import kotlin.math.max
 
 class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
+    fun Double.fromDegrees(): Double = this * Math.PI / 180.0
+    
     fun driveForward(velocity: Double): Command = run {
         io.setVelocity(velocity)
     }
