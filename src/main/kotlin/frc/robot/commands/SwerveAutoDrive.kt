@@ -50,9 +50,9 @@ class SwerveAutoDrive(
         val color = DriverStation.getAlliance()
         to =
             if (color.isPresent && color.get() == DriverStation.Alliance.Red)
-                goal.get().red
+                goal.get().red.toPose2d()
             else
-                goal.get().blue
+                goal.get().blue.toPose2d()
         index = 0
         points = pathfind(drive.getPose(),  to)
         drive.field.getObject("points").setPoses(points)
