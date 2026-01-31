@@ -37,11 +37,11 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
     private val modules: List<SwerveModule> =
         when (Constants.mode){
             Constants.States.REAL -> {
-                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOKraken(swerveMod),swerveMod.MODULE_NUMBER) }
+                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOKraken(swerveMod),swerveMod.moduleNumber) }
             }
             Constants.States.REPLAY -> {
                 SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(object: SwerveModuleIO {
-                    override val turnPIDController: PIDController = swerveMod.PID_CONTROLLER
+                    override val turnPIDController: PIDController = swerveMod.pidController
                     override fun updateInputs(inputs: SwerveModuleIO.ModuleIOInputs) {
                         //no
                     }
@@ -65,10 +65,10 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
                     override fun reset() {
                         //no
                     }
-                } ,swerveMod.MODULE_NUMBER) }
+                } ,swerveMod.moduleNumber) }
             }
             Constants.States.SIM -> {
-                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOSim(swerveMod.MODULE_NUMBER),swerveMod.MODULE_NUMBER) }
+                SwerveDriveConstants.modules.mapIndexed { _, swerveMod -> SwerveModule(SwerveModuleIOSim(swerveMod.moduleNumber),swerveMod.moduleNumber) }
             }
         }
     private val gyro = when (Constants.mode){
