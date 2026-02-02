@@ -9,7 +9,6 @@ import frc.lib.motor.MotorEncoder
 class SparkMaxEncoder(
     var motorConfig: SparkMaxConfig = SparkMaxConfig()
 ) : MotorEncoder {
-
     override fun configurate() {
         TODO("Not yet implemented")
     }

@@ -62,6 +62,7 @@ class RobotContainer {
         rightChooser.addOption("right", true)
 
 
+
         // get selected level with levelChooser.selected
         if (Constants.mode == Constants.States.REAL) {
 

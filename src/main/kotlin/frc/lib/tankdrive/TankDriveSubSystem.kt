@@ -1,11 +1,15 @@
 package frc.lib.tankdrive
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import kotlin.math.abs
 import kotlin.math.max
 
 class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
+
+    private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
+
     fun driveForward(velocity: Double): Command = run {
         io.setVelocity(velocity)
     }

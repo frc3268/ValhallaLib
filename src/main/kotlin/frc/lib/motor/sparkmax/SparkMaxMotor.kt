@@ -8,7 +8,7 @@ import frc.lib.motor.Motor
 import frc.lib.motor.MotorEncoder
 
 class SparkMaxMotor(
-    override val encoder: MotorEncoder,
+    override val encoder: SparkMaxEncoder,
     override var invert: Boolean
 ) : Motor {
     override fun setVoltage(

@@ -129,8 +129,8 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
         field= Field2d()
         field2 = Field2d()
         shuffleboardTab.add(field).withWidget(BuiltInWidgets.kField)
-        shuffleboardTab.add("field2", field2).withWidget(BuiltInWidgets.kField)
-        field.getObject("obr").setPoses(Pose2d(
+        shuffleboardTab.add("Field", field2).withWidget(BuiltInWidgets.kField)
+        field.getObject("Robot").setPoses(Pose2d(
             13.0856, 4.0259, 0.0.rotation2dFromDeg()
         ), Pose2d(
             4.4895, 4.0259, 0.0.rotation2dFromDeg()
