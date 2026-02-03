@@ -15,6 +15,8 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
     private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
     var camera: Camera? = null
 
+    fun Double.fromDegrees(): Double = this * Math.PI / 180.0
+    
     fun driveForward(velocity: LinearVelocity): Command = run {
         io.setVelocityBoth(velocity)
     }

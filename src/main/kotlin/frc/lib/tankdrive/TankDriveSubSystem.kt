@@ -17,6 +17,10 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
 
     fun driveForward(velocity: LinearVelocity): Command = run {
         io.setVelocityBoth(velocity)
+    fun Double.fromDegrees(): Double = this * Math.PI / 180.0
+    
+    fun driveForward(velocity: Double): Command = run {
+        io.setVelocity(velocity)
     }
 
     fun turnLeft(velocity: LinearVelocity): Command = run {

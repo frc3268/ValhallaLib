@@ -13,18 +13,17 @@ import edu.wpi.first.math.geometry.*
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.math.util.Units
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.WHEEL_DIAMETER_METERS
 
 object SwerveDriveConstants {
     data class ModuleConstants(
-            val MODULE_NUMBER: Int,
-            val ANGLE_OFFSET: Rotation2d,
-            val DRIVE_MOTOR_ID: Int,
-            val ANGLE_MOTOR_ID: Int,
-            val ENCODER_ID: Int,
-            val DRIVE_MOTOR_REVERSED: Boolean,
-            val ANGLE_MOTOR_REVERSED: Boolean,
-            val PID_CONTROLLER: PIDController
+        val moduleNumber: Int,
+        val angleOffset: Rotation2d,
+        val driveMotorId: Int,
+        val angleMotorId: Int,
+        val encoderId: Int,
+        val driveMotorReversed: Boolean,
+        val angleMotorReversed: Boolean,
+        val pidController: PIDController
     )
 
     object DriveMotor {
