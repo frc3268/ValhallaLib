@@ -10,11 +10,12 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
 import frc.lib.FieldLocation
-import frc.robot.commands.SwerveJoystickDrive
+import frc.lib.core.robotCore.initCore
 import frc.lib.swerve.SwerveDriveBase
 import frc.robot.Constants
 import frc.robot.commands.Routines
 import frc.robot.commands.SwerveAutoDrive
+import frc.robot.commands.SwerveJoystickDrive
 
 /** A Basic core singleton. *WARNING: You must call [initCore] before using or acessing this singleton!* */
 object robotCore {
@@ -26,7 +27,7 @@ object robotCore {
     val GeneralTab = Shuffleboard.getTab("General")
     val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
 
-    
+
     fun goto(goal: FieldLocation): Command {
         return SwerveAutoDrive(
             { goal },
@@ -44,7 +45,7 @@ object robotCore {
             return autoChooser.selected
         }
 
-    
+
     fun initCore() {
         // initialize HAL
         check(HAL.initialize(500, 0)) { "Failed to initialize. Terminating." }
@@ -64,7 +65,10 @@ object robotCore {
 
 
         autoChooser.addOption("Do nothing", WaitCommand(3.0))
-        autoChooser.setDefaultOption("Taxi", SwerveJoystickDrive(driveSubsystem, {1.0}, {0.0}, {0.0}, {false} ).withTimeout(1.0))
+        autoChooser.setDefaultOption(
+            "Taxi",
+            SwerveJoystickDrive(driveSubsystem, { 1.0 }, { 0.0 }, { 0.0 }, { false }).withTimeout(1.0)
+        )
     }
 
     // Idk if this should be called in initCore or not

@@ -23,8 +23,10 @@ object Constants {
 
         /** Should the simulated camera use wireframe? */
         const val USE_WIREFRAME = true
+
         /** Should the simulated camera output its raw stream to localhost:1181 */
         const val ENABLE_RAW_STREAM = true
+
         /** Should the simulated camera output its processed stream to localhost:1182 */
         const val ENABLE_PROCESSED_STREAM = true
     }
@@ -41,7 +43,7 @@ object Constants {
     const val TROUBLESHOOTING_TAB = "Troubleshooting"
     const val CALIBRATION_TAB = "Calibration"
 
-    enum class States{ REAL, SIM, REPLAY }
+    enum class States { REAL, SIM, REPLAY }
 
     /** Current state of the robot. Should be automatically set. */
     var mode = States.SIM

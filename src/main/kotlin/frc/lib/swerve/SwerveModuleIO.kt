@@ -18,7 +18,7 @@ interface SwerveModuleIO {
         var turnVelocityRadPerSec: Double = 0.0
     }
 
-    val turnPIDController:PIDController
+    val turnPIDController: PIDController
 
     /** Updates the set of loggable inputs.  */
     fun updateInputs(inputs: ModuleIOInputs)

@@ -9,7 +9,8 @@ package frc.lib.swerve
 
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.ProfiledPIDController
-import edu.wpi.first.math.geometry.*
+import edu.wpi.first.math.geometry.Rotation2d
+import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.math.util.Units
@@ -33,7 +34,7 @@ object SwerveDriveConstants {
     }
 
     object AngleMotor {
-        //for some reason 10:1 delivers the most accurate results
+        // For some reason 10:1 delivers the most accurate results
         const val POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION = 6.2 / 1.0
 
     }
@@ -59,27 +60,28 @@ object SwerveDriveConstants {
 
         val xPIDController = PIDController(1.8, 0.0, 0.0)
         val yPIDController = PIDController(1.8, 0.0, 0.0)
-        val thetaPIDController = ProfiledPIDController(0.03, 0.0, 0.0, TrapezoidProfile.Constraints(
-            MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND, MAX_ANGULAR_ACCELERATION_DEGREES_PER_SECOND_SQUARED))
+        val thetaPIDController = ProfiledPIDController(
+            0.03, 0.0, 0.0, TrapezoidProfile.Constraints(
+                MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND, MAX_ANGULAR_ACCELERATION_DEGREES_PER_SECOND_SQUARED
+            )
+        )
 
-        //in the order they appear in modules list
-        //assuming that 0,0 is the center of the robot, and (+,+) means (left, front)
+        // In the order they appear in modules list
+        // Assuming that 0,0 is the center of the robot, and (+,+) means (left, front)
         val kinematics =
-                SwerveDriveKinematics(
-                        Translation2d(WHEEL_BASE_METERS / 2.0, -TRACK_WIDTH_METERS / 2.0),
-                        Translation2d(WHEEL_BASE_METERS / 2.0, TRACK_WIDTH_METERS / 2.0),
-                        Translation2d(-WHEEL_BASE_METERS / 2.0, TRACK_WIDTH_METERS / 2.0),
-                        Translation2d(-WHEEL_BASE_METERS / 2.0, -TRACK_WIDTH_METERS / 2.0),
-
-
-                        )
+            SwerveDriveKinematics(
+                Translation2d(WHEEL_BASE_METERS / 2.0, -TRACK_WIDTH_METERS / 2.0),
+                Translation2d(WHEEL_BASE_METERS / 2.0, TRACK_WIDTH_METERS / 2.0),
+                Translation2d(-WHEEL_BASE_METERS / 2.0, TRACK_WIDTH_METERS / 2.0),
+                Translation2d(-WHEEL_BASE_METERS / 2.0, -TRACK_WIDTH_METERS / 2.0),
+            )
     }
 
 
     val modules = listOf(
-            ModuleConstants(1, Rotation2d.fromDegrees(145.1), 1, 2, 0, true, false, PIDController(0.013, 0.00, 0.00)),
-            ModuleConstants(2, Rotation2d.fromDegrees(9.1), 3, 4, 1, false, false, PIDController(0.013, 0.000, 0.0000)),
-            ModuleConstants(3, Rotation2d.fromDegrees(140.0), 5, 6, 2, false, false, PIDController(0.013, 0.00, 0.000)),
-            ModuleConstants(4, Rotation2d.fromDegrees(-90.0), 7, 8, 3, false, false, PIDController(0.013, 0.00, 0.000))
+        ModuleConstants(1, Rotation2d.fromDegrees(145.1), 1, 2, 0, true, false, PIDController(0.013, 0.00, 0.00)),
+        ModuleConstants(2, Rotation2d.fromDegrees(9.1), 3, 4, 1, false, false, PIDController(0.013, 0.000, 0.0000)),
+        ModuleConstants(3, Rotation2d.fromDegrees(140.0), 5, 6, 2, false, false, PIDController(0.013, 0.00, 0.000)),
+        ModuleConstants(4, Rotation2d.fromDegrees(-90.0), 7, 8, 3, false, false, PIDController(0.013, 0.00, 0.000))
     )
 }

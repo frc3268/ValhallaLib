@@ -48,11 +48,11 @@ class Camera(name: String) {
         try {
 
             poseEstimator =
-                    PhotonPoseEstimator(
-                        AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField),
-                            PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-                            robotToCam
-                    )
+                PhotonPoseEstimator(
+                    AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField),
+                    PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+                    robotToCam
+                )
 
 
         } catch (e: IOException) {
@@ -100,13 +100,14 @@ class Camera(name: String) {
 
         }
     }
+
     //call periodically
     //does this work?? consult documentation
-    fun captureFrame(){
-            val results = limelight.allUnreadResults
-            if(results.isNotEmpty()) {
-              frame = results.last()
-            }
+    fun captureFrame() {
+        val results = limelight.allUnreadResults
+        if (results.isNotEmpty()) {
+            frame = results.last()
+        }
     }
 
 
@@ -125,7 +126,7 @@ class Camera(name: String) {
     fun getEstimatedPose(): Optional<EstimatedRobotPose>? =
         poseEstimator?.update(frame)
 
-    fun getEstimationStdDevs(estimatedPose:Pose2d): Matrix<N3, N1>? {
+    fun getEstimationStdDevs(estimatedPose: Pose2d): Matrix<N3, N1>? {
         //todo: expiriment with vecbuilder values(somehow)
         var estStdDevs = VecBuilder.fill(.7, .7, .9)
         val targets = frame.getTargets()

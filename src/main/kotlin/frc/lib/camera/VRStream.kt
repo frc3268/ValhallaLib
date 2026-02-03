@@ -15,8 +15,7 @@ class VRStream {
         if (video.isOpened) {
             // Do Something I guess
             this.loaded = true;
-        }
-        else {
+        } else {
             DriverStation.reportWarning("VRStream: Failed to Load", false)
         }
 

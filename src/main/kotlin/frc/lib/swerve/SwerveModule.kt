@@ -1,28 +1,27 @@
 package frc.lib.swerve
 
 import edu.wpi.first.math.controller.PIDController
-import edu.wpi.first.math.kinematics.*
-import edu.wpi.first.networktables.GenericEntry
-import edu.wpi.first.wpilibj.shuffleboard.*
+import edu.wpi.first.math.kinematics.SwerveModulePosition
+import edu.wpi.first.math.kinematics.SwerveModuleState
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import frc.robot.Constants
-import org.littletonrobotics.junction.Logger
-import kotlin.math.*
+import kotlin.math.abs
 
 /*
 Props: drive motor, drive encoder, angle motor, angle encoder, absolute encoder
 Get: Cancoder measurement, Module state(velocity) and position
 Set: Module state
  */
-class SwerveModule(val io: SwerveModuleIO, val index:Int) {
+class SwerveModule(val io: SwerveModuleIO, val index: Int) {
     private val inputs = ModuleIOInputsAutoLogged()
     private val ShuffleboardTab = Shuffleboard.getTab("Swerve Module " + index)
-    val headingE = ShuffleboardTab.add("heading", 0.0 ).getEntry()
-    val setpointE = ShuffleboardTab.add("setpoint", "nothing" ).getEntry()
+    val headingE = ShuffleboardTab.add("heading", 0.0).getEntry()
+    val setpointE = ShuffleboardTab.add("setpoint", "nothing").getEntry()
 
     val turnController: PIDController = io.turnPIDController
 
-    private var lastPosition:SwerveModulePosition = SwerveModulePosition()
-    var delta:SwerveModulePosition = SwerveModulePosition()
+    private var lastPosition: SwerveModulePosition = SwerveModulePosition()
+    var delta: SwerveModulePosition = SwerveModulePosition()
 
     init {
         turnController.enableContinuousInput(-180.0, 180.0)
@@ -33,7 +32,8 @@ class SwerveModule(val io: SwerveModuleIO, val index:Int) {
         delta = SwerveModulePosition(
             getPosition().distanceMeters
                     - lastPosition.distanceMeters,
-            getPosition().angle);
+            getPosition().angle
+        );
         lastPosition = getPosition()
         headingE.setDouble(inputs.turnPosition.degrees)
     }
@@ -56,9 +56,9 @@ class SwerveModule(val io: SwerveModuleIO, val index:Int) {
 
         setpointE.setString("error; " + error + "currentState: " + desiredState.angle.degrees)
         io.setDriveVoltage((desiredState.speedMetersPerSecond / SwerveDriveConstants.DrivetrainConsts.MAX_SPEED_METERS_PER_SECOND) * 12.0)
-        if(Constants.mode == Constants.States.REAL){
+        if (Constants.mode == Constants.States.REAL) {
             io.setTurnVoltage(turnController.calculate(error, 0.0) * 12.0)
-        } else{
+        } else {
             io.setTurnVoltage(turnController.calculate(getState().angle.degrees, desiredState.angle.degrees) * 12.0)
         }
     }

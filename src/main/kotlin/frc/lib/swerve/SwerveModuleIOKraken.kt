@@ -7,15 +7,15 @@ import com.ctre.phoenix6.signals.NeutralModeValue
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.util.Units
 import edu.wpi.first.wpilibj.AnalogEncoder
-import frc.lib.swerve.SwerveModuleIO.ModuleIOInputs
 import frc.lib.rotation2dFromDeg
+import frc.lib.swerve.SwerveModuleIO.ModuleIOInputs
 import kotlin.math.IEEErem
 
 
 class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConstants) : SwerveModuleIO {
 
     private val driveMotor = TalonFX(moduleConstants.driveMotorId, "rio")
-    private val angleMotor = TalonFX(moduleConstants.angleMotorId,"rio")
+    private val angleMotor = TalonFX(moduleConstants.angleMotorId, "rio")
 
     override val turnPIDController: PIDController = moduleConstants.pidController
 
@@ -30,27 +30,29 @@ class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConst
     val tconfig = TalonFXConfiguration()
 
     init {
-                dconfig.Feedback.SensorToMechanismRatio=
-                    SwerveDriveConstants.DriveMotor.POSITION_CONVERSION_FACTOR_METERS_PER_ROTATION
-                tconfig.Feedback.SensorToMechanismRatio =
-                    SwerveDriveConstants.AngleMotor.POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION
+        dconfig.Feedback.SensorToMechanismRatio =
+            SwerveDriveConstants.DriveMotor.POSITION_CONVERSION_FACTOR_METERS_PER_ROTATION
+        tconfig.Feedback.SensorToMechanismRatio =
+            SwerveDriveConstants.AngleMotor.POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION
 
-                dconfig.MotorOutput.Inverted = if (moduleConstants.driveMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
-                tconfig.MotorOutput.Inverted =  if (moduleConstants.angleMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
+        dconfig.MotorOutput.Inverted =
+            if (moduleConstants.driveMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
+        tconfig.MotorOutput.Inverted =
+            if (moduleConstants.angleMotorReversed) InvertedValue.Clockwise_Positive else InvertedValue.CounterClockwise_Positive
 
-                dconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
-                tconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
+        dconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
+        tconfig.MotorOutput.NeutralMode = NeutralModeValue.Coast
 //                dconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS
 //                tconfig.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS
 
-                driveMotor.position.setUpdateFrequency(50.0, 15.0)
-                //todo: fix? below
-                angleMotor.position.setUpdateFrequency(50.0, 15.0)
+        driveMotor.position.setUpdateFrequency(50.0, 15.0)
+        //todo: fix? below
+        angleMotor.position.setUpdateFrequency(50.0, 15.0)
 
 
 
-                driveMotor.configurator.apply(dconfig)
-                angleMotor.configurator.apply(tconfig)
+        driveMotor.configurator.apply(dconfig)
+        angleMotor.configurator.apply(tconfig)
 
         //apply config
         turnPIDController.enableContinuousInput(-180.0, 180.0)
@@ -63,12 +65,12 @@ class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConst
         inputs.driveVelocityMetersPerSec =
             -driveMotor.velocity.valueAsDouble
         inputs.turnAbsolutePosition =
-            ((absoluteEncoder.get()  * 360.0) + moduleConstants.angleOffset.degrees).rotation2dFromDeg()
+            ((absoluteEncoder.get() * 360.0) + moduleConstants.angleOffset.degrees).rotation2dFromDeg()
         inputs.turnPosition =
             (((inputs.turnAbsolutePosition.degrees).IEEErem(360.0)).rotation2dFromDeg())
         inputs.turnVelocityRadPerSec = (
                 Units.rotationsPerMinuteToRadiansPerSecond(angleMotor.velocity.valueAsDouble)
-                        )
+                )
 
     }
 

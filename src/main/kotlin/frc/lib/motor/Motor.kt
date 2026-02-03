@@ -2,10 +2,8 @@ package frc.lib.motor
 
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.units.CurrentUnit
-import edu.wpi.first.units.Units
-import edu.wpi.first.units.Units.*
+import edu.wpi.first.units.Units.Volts
 import edu.wpi.first.units.measure.LinearVelocity
-import edu.wpi.first.units.measure.Velocity
 import edu.wpi.first.units.measure.Voltage
 import frc.robot.Constants
 
@@ -59,12 +57,16 @@ interface Motor {
 
     /** Stop the motor **/
     fun stop()
+
     /** Close the motor and free up resources. This should not be called unless necessary **/
     fun close()
+
     /** Zero everything **/
     fun reset()
+
     /** Should this motor be forced to invert?*/
     fun forceInvert()
+
     /** Sets this motor to follow [motor].*/
     fun <T : Motor> follow(motor: T): Boolean
 
@@ -79,7 +81,7 @@ interface Motor {
     }
 
     /** Do not call this function directly! Call autoPeriodic instead! */
-    fun allPeriodic()  {}
+    fun allPeriodic() {}
 
     /** Do not call this function directly! Call autoPeriodic instead! */
     fun realPeriodic() {}

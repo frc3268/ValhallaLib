@@ -1,11 +1,9 @@
 package frc.lib.motor.sparkmax
 
-import com.revrobotics.spark.SparkMax
 import edu.wpi.first.units.CurrentUnit
 import edu.wpi.first.units.measure.LinearVelocity
 import edu.wpi.first.units.measure.Voltage
 import frc.lib.motor.Motor
-import frc.lib.motor.MotorEncoder
 
 class SparkMaxMotor(
     override val encoder: SparkMaxEncoder,

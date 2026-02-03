@@ -1,7 +1,6 @@
 package frc.lib.tankdrive
 
 import edu.wpi.first.units.Units
-import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.units.measure.LinearVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
@@ -16,7 +15,7 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
     var camera: Camera? = null
 
     fun Double.fromDegrees(): Double = this * Math.PI / 180.0
-    
+
     fun driveForward(velocity: LinearVelocity): Command = run {
         io.setVelocityBoth(velocity)
     }
@@ -31,8 +30,8 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
 
     fun arcadeDrive(rotate: Double, drive: Double): Command = run {
         val maximum = Units.FeetPerSecond.of(max(abs(drive), abs(rotate)))
-        val total = Units.FeetPerSecond.of(rotate+drive)
-        val difference = Units.FeetPerSecond.of(drive-rotate)
+        val total = Units.FeetPerSecond.of(rotate + drive)
+        val difference = Units.FeetPerSecond.of(drive - rotate)
         if (drive >= 0) {
             if (rotate >= 0) {
                 io.setVelocity(maximum, difference)

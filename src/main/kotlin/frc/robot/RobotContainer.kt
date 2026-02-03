@@ -1,22 +1,11 @@
 package frc.robot
 
-import edu.wpi.first.math.geometry.Pose2d
-import edu.wpi.first.wpilibj.motorcontrol.Talon
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
-import frc.lib.FieldLocation
-import frc.lib.FieldPositions
-import frc.lib.swerve.SwerveDriveBase
-import frc.lib.tankdrive.TankDriveIO
-import frc.lib.tankdrive.TankDriveSubsystem
-import frc.robot.commands.AlignToAprilTagCommand
-import frc.robot.commands.Routines
-import frc.robot.commands.SwerveAutoDrive
-import frc.robot.commands.SwerveJoystickDrive
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,9 +16,9 @@ import frc.robot.commands.SwerveJoystickDrive
 class RobotContainer {
     private val GeneralTab = Shuffleboard.getTab("General")
     private val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    val elevatorHeightDesiredEntry = CalibrationTab.add("Desired Elevator Height", 0.0).withWidget(BuiltInWidgets.kNumberSlider).entry
+    val elevatorHeightDesiredEntry =
+        CalibrationTab.add("Desired Elevator Height", 0.0).withWidget(BuiltInWidgets.kNumberSlider).entry
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
-
 
 
     val autochooser = SendableChooser<Command>()
@@ -50,17 +39,15 @@ class RobotContainer {
 //        )
 //    }
 
-    
+
     /** The container for the robot. Contains subsystems, OI devices, and commands.  */
     init {
-
 
 
         val rightChooser = SendableChooser<Boolean>()
 
         rightChooser.setDefaultOption("left", false)
         rightChooser.addOption("right", true)
-
 
 
         // get selected level with levelChooser.selected
