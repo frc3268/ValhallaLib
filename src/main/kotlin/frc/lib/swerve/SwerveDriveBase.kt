@@ -106,7 +106,6 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
     var field:Field2d
     var field2:Field2d
 
-    //should be an option for a sim camera
     var camera: Camera? = null
 
     init {

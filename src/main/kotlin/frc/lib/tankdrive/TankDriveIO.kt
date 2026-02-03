@@ -1,5 +1,6 @@
 package frc.lib.tankdrive
 
+import edu.wpi.first.units.measure.LinearVelocity
 import frc.lib.motor.Motor
 
 class TankDriveIO(
@@ -10,27 +11,25 @@ class TankDriveIO(
         left2.follow(left1)
         right2.follow(right1)
         right1.forceInvert()
-
         right1.configure()
     }
 
-    fun setLeftVelocity(velocity: Double) {
+    fun setLeftVelocity(velocity: LinearVelocity) {
         left1.setVelocity(velocity)
     }
 
-    fun setRightVelocity(velocity: Double) {
+    fun setRightVelocity(velocity: LinearVelocity) {
         right1.setVelocity(velocity)
     }
 
-    fun setVelocity(leftVel: Double, rightVel: Double) {
+    fun setVelocity(leftVel: LinearVelocity, rightVel: LinearVelocity) {
         setLeftVelocity(leftVel)
         setRightVelocity(rightVel)
     }
 
-    fun setVelocity(velocity: Double) {
+    fun setVelocityBoth(velocity: LinearVelocity) {
         setVelocity(velocity, velocity)
     }
-
 
     fun stop() {
         left1.stop()
