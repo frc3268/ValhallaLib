@@ -26,6 +26,7 @@ import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.MAX_SPEED_METERS_PER
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.kinematics
 import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.thetaPIDController
 import frc.robot.Constants
+import frc.robot.Constants.CAMERA_NAME
 import org.littletonrobotics.junction.Logger
 import org.photonvision.EstimatedRobotPose
 import java.util.*
@@ -115,7 +116,7 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
         // This might still work in REPLAY mode
         if(Constants.mode != Constants.States.REPLAY){
-            camera = Camera("hawkeye")
+            camera = Camera(CAMERA_NAME)
         }
 
         zeroYaw()
@@ -129,7 +130,7 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
         field2 = Field2d()
         shuffleboardTab.add(field).withWidget(BuiltInWidgets.kField)
         shuffleboardTab.add("Field", field2).withWidget(BuiltInWidgets.kField)
-        field.getObject("Robot").setPoses(Pose2d(
+        field.getObject("obr").setPoses(Pose2d(
             13.0856, 4.0259, 0.0.rotation2dFromDeg()
         ), Pose2d(
             4.4895, 4.0259, 0.0.rotation2dFromDeg()

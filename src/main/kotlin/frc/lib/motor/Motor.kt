@@ -28,6 +28,8 @@ interface Motor {
     /** Should we invert the motor output?*/
     var invert: Boolean
 
+    fun setPercent(percent: Double)
+
     /** Run the motor at the specified [voltage]
      * @param[voltage] Specified voltage to run motor
      */
@@ -66,7 +68,7 @@ interface Motor {
     /** Should this motor be forced to invert?*/
     fun forceInvert()
     /** Sets this motor to follow [motor].*/
-    fun <T : Motor> follow(motor: T): Boolean
+    fun follow(motor: Motor): Boolean
 
     /** Calls a periodic function based off of current constants state */
     fun autoPeriodic() {

@@ -1,6 +1,8 @@
 package frc.robot
 
+import com.revrobotics.spark.SparkLowLevel
 import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.units.Units
 import edu.wpi.first.wpilibj.motorcontrol.Talon
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
@@ -10,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
 import frc.lib.FieldLocation
 import frc.lib.FieldPositions
+import frc.lib.motor.sparkmax.SparkMaxEncoder
+import frc.lib.motor.sparkmax.SparkMaxMotor
 import frc.lib.swerve.SwerveDriveBase
 import frc.lib.tankdrive.TankDriveIO
 import frc.lib.tankdrive.TankDriveSubsystem
@@ -27,7 +31,6 @@ import frc.robot.commands.SwerveJoystickDrive
 class RobotContainer {
     private val GeneralTab = Shuffleboard.getTab("General")
     private val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    val elevatorHeightDesiredEntry = CalibrationTab.add("Desired Elevator Height", 0.0).withWidget(BuiltInWidgets.kNumberSlider).entry
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
 
 
@@ -55,6 +58,12 @@ class RobotContainer {
     init {
 
 
+        var tankdrive = TankDriveSubsystem(TankDriveIO(
+            SparkMaxMotor(SparkMaxEncoder(), 1, SparkLowLevel.MotorType.kBrushless),
+            SparkMaxMotor(SparkMaxEncoder(), 2, SparkLowLevel.MotorType.kBrushless),
+            SparkMaxMotor(SparkMaxEncoder(), 3, SparkLowLevel.MotorType.kBrushless),
+            SparkMaxMotor(SparkMaxEncoder(), 4, SparkLowLevel.MotorType.kBrushless),
+        ))
 
         val rightChooser = SendableChooser<Boolean>()
 
@@ -63,11 +72,10 @@ class RobotContainer {
 
 
 
-        // get selected level with levelChooser.selected
         if (Constants.mode == Constants.States.REAL) {
 
+
         } else {
-            // coralIntakeSubsystem = CoralIntakeSubsystem(CoralIntakeIOSparkMaxSim())
 
             println("Warning: Simulated subsystems do not exist as no IOClass for them exists!")
             println("Abandon all hope ye who debug here")
@@ -75,8 +83,8 @@ class RobotContainer {
 
         val rbChooser = SendableChooser<Command>()
 
-//        driverController.leftTrigger().onTrue(tankDriveSubsystem.driveForward(0.7));
-//        driverController.rightTrigger().onTrue(tankDriveSubsystem.driveForward(0.0));
+        driverController.leftTrigger().onTrue(tankdrive.driveForward(Units.FeetPerSecond.of(5.0)))
+        driverController.rightTrigger().onTrue(tankdrive.driveForward(Units.FeetPerSecond.of(5.0)))
 
 //        rbChooser.setDefaultOption(
 //            "Align to April Tag",
