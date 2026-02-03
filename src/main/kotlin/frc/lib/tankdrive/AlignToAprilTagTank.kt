@@ -4,13 +4,14 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout
 import edu.wpi.first.apriltag.AprilTagFields
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.units.Units
 import edu.wpi.first.wpilibj2.command.Command
 import frc.lib.camera.Camera
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.hypot
 
-class AlignToAprilTag(
+class AlignToAprilTagTank(
     val drive: TankDriveSubsystem,
     val camera: Camera,
     val getPose: () -> Pose2d,
@@ -18,16 +19,19 @@ class AlignToAprilTag(
 ) : Command() {
 
     private val field = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField)
-    
-    private val turnPID = PIDController(0.02, 0.0, 0.0)
-    private val drivePID = PIDController(0.5, 0.0, 0.0)
-    
+
+    // TODO: Tune the PID
+    private val turnPID = PIDController(0.0, 0.0, 0.0)
+    private val drivePID = PIDController(0.0, 0.0, 0.0)
+
     private var fidID = -1
     private var apriltagLoc = Pose2d()
-    /* four phases the robot can be in when trying to align to april tag
+
+    /* There are three phases the robot can be in when trying to align to april tag
     TURN_TO_TARGET, DRIVE_TO_TARGET, DONE
      */
     private var phase = Phase.TURN_TO_TARGET
+
     private enum class Phase { TURN_TO_TARGET, DRIVE_TO_TARGET, DONE }
 
     init {
@@ -39,16 +43,16 @@ class AlignToAprilTag(
     override fun initialize() {
         phase = Phase.TURN_TO_TARGET
         fidID = -1
-        
+
         if (!camera.frame.hasTargets()) {
             phase = Phase.DONE
             return
         }
-        
+
         val bestTarget = camera.frame.bestTarget
         fidID = bestTarget.fiducialId
         apriltagLoc = field.getTagPose(fidID).get().toPose2d()
-        
+
         if (onRight()) {
             apriltagLoc = Pose2d(
                 apriltagLoc.x + apriltagLoc.rotation.sin * -0.5,
@@ -60,7 +64,7 @@ class AlignToAprilTag(
 
     override fun execute() {
         if (fidID == -1) return
-        
+
         val currentPose = getPose()
         val dx = apriltagLoc.x - currentPose.x
         val dy = apriltagLoc.y - currentPose.y
@@ -73,7 +77,7 @@ class AlignToAprilTag(
             /* Calculates angle between the bot and apriltag and rotates facing it */
             Phase.TURN_TO_TARGET -> {
                 val turnError = normalizeAngle(angleToTarget - currentAngle)
-                val turnOutput = turnPID.calculate(turnError, 0.0)
+                val turnOutput = Units.FeetPerSecond.of(turnPID.calculate(turnError, 0.0))
                 // turns the robot
                 drive.io.setVelocity(-turnOutput, turnOutput)
 
@@ -84,13 +88,14 @@ class AlignToAprilTag(
             }
             /* Drive tankdrive towards apriltag */
             Phase.DRIVE_TO_TARGET -> {
-                val driveOutput = drivePID.calculate(distance, 0.0)
+                val driveOutput = Units.FeetPerSecond.of(drivePID.calculate(distance, 0.0))
                 drive.io.setVelocity(-driveOutput, -driveOutput)
-                
+
                 if (distance < 0.2) {
                     phase = Phase.DONE
                 }
             }
+
             Phase.DONE -> drive.stop()
         }
     }
@@ -100,6 +105,7 @@ class AlignToAprilTag(
     override fun end(interrupted: Boolean) {
         drive.stop()
     }
+
     /* converts angles to between -180 and 180 */
     private fun normalizeAngle(angle: Double): Double {
         var a = angle % 360
