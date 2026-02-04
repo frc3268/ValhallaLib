@@ -22,9 +22,9 @@ import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.rotation2dFromDeg
 import frc.lib.rotation2dFromRad
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.MAX_SPEED_METERS_PER_SECOND
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.kinematics
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.thetaPIDController
+import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.MAX_SPEED_METERS_PER_SECOND
+import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.kinematics
+import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.thetaPIDController
 import frc.robot.Constants
 import org.littletonrobotics.junction.Logger
 import org.photonvision.EstimatedRobotPose

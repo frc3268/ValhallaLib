@@ -44,7 +44,7 @@ object SwerveDriveConstants {
         const val POSITION_CONVERSION_FACTOR_DEGREES_PER_ROTATION: Double = 360.0
     }
 
-    object DrivetrainConsts {        /* Drivetrain Constants */
+    object DriveTrainConstants {        /* Drivetrain Constants */
         val TRACK_WIDTH_METERS = Units.inchesToMeters(30.0)
         val WHEEL_BASE_METERS = Units.inchesToMeters(30.0)
 

@@ -12,9 +12,14 @@ import kotlin.math.max
 class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
 
     private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
-    var camera: Camera? = null
+    private var camera: Camera? = null
+    //private var poseEstimator: DifferentialDrivePoseEstimator
 
-    fun Double.fromDegrees(): Double = this * Math.PI / 180.0
+    init {
+//        poseEstimator = DifferentialDrivePoseEstimator(
+//
+//        )
+    }
 
     fun driveForward(velocity: LinearVelocity): Command = run {
         io.setVelocityBoth(velocity)

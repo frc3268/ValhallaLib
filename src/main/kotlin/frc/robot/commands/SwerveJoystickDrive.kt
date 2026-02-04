@@ -38,7 +38,7 @@ class SwerveJoystickDrive(
         val turnSpeed: Double = MathUtil.applyDeadband(
             rotation.asDouble,
             Constants.OperatorConstants.STICK_DEADBAND
-        ) * SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND
+        ) * SwerveDriveConstants.DriveTrainConstants.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND
 
         /* Drive */
         drive.setModuleStates(
@@ -66,6 +66,4 @@ class SwerveJoystickDrive(
     fun sigmoid(x: Double): Double {
         return (10 * (1 / (1 + Math.E.pow(-1.75 * x)))) - 5
     }
-
-
 }

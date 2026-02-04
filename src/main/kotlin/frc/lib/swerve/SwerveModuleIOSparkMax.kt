@@ -37,8 +37,8 @@ class SwerveModuleIOSparkMax(val moduleConstants: SwerveDriveConstants.ModuleCon
         driveConfig.inverted(moduleConstants.driveMotorReversed)
         angleConfig.inverted(moduleConstants.angleMotorReversed)
 
-        driveConfig.openLoopRampRate(SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS)
-        angleConfig.openLoopRampRate(SwerveDriveConstants.DrivetrainConsts.OPEN_LOOP_RAMP_RATE_SECONDS)
+        driveConfig.openLoopRampRate(SwerveDriveConstants.DriveTrainConstants.OPEN_LOOP_RAMP_RATE_SECONDS)
+        angleConfig.openLoopRampRate(SwerveDriveConstants.DriveTrainConstants.OPEN_LOOP_RAMP_RATE_SECONDS)
 
 
         driveConfig.signals.primaryEncoderPositionPeriodMs(15)

@@ -49,12 +49,12 @@ class AlignToAprilTagSwerve(val drive: SwerveDriveBase, val onRight: Supplier<Bo
             println(targetDelta.x)
             drive.setModuleStates(
                 drive.constructModuleStatesFromChassisSpeeds(
-                    -SwerveDriveConstants.DrivetrainConsts.xPIDController.calculate(targetDelta.x, 0.0),
-                    -SwerveDriveConstants.DrivetrainConsts.yPIDController.calculate(targetDelta.y, 0.0),
-                    -SwerveDriveConstants.DrivetrainConsts.thetaPIDController.calculate(
+                    -SwerveDriveConstants.DriveTrainConstants.xPIDController.calculate(targetDelta.x, 0.0),
+                    -SwerveDriveConstants.DriveTrainConstants.yPIDController.calculate(targetDelta.y, 0.0),
+                    -SwerveDriveConstants.DriveTrainConstants.thetaPIDController.calculate(
                         targetDelta.rotation.degrees,
                         0.0
-                    ) * SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND / 2,
+                    ) * SwerveDriveConstants.DriveTrainConstants.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND / 2,
                     true
                 )
 

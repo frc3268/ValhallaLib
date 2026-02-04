@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command
 import frc.lib.*
 import frc.lib.swerve.SwerveDriveBase
 import frc.lib.swerve.SwerveDriveConstants
-import frc.lib.swerve.SwerveDriveConstants.DrivetrainConsts.MAX_SPEED_METERS_PER_SECOND
+import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.MAX_SPEED_METERS_PER_SECOND
 import frc.robot.Constants
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -65,31 +65,31 @@ class SwerveAutoDrive(
         val speeds =
             if (Constants.mode == Constants.States.SIM) {
                 Pose2d(
-                    SwerveDriveConstants.DrivetrainConsts.xPIDController.calculate(
+                    SwerveDriveConstants.DriveTrainConstants.xPIDController.calculate(
                         drive.getPose().x, next.x
                     ) * MAX_SPEED_METERS_PER_SECOND,
-                    SwerveDriveConstants.DrivetrainConsts.yPIDController.calculate(
+                    SwerveDriveConstants.DriveTrainConstants.yPIDController.calculate(
                         drive.getPose().y, next.y
                     ) * MAX_SPEED_METERS_PER_SECOND,
-                    (SwerveDriveConstants.DrivetrainConsts.thetaPIDController.calculate(
+                    (SwerveDriveConstants.DriveTrainConstants.thetaPIDController.calculate(
                         drive.getPose().rotation.degrees,
                         TrapezoidProfile.State(to.rotation.degrees, 0.0)
-                    ) * SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND).rotation2dFromDeg(),
+                    ) * SwerveDriveConstants.DriveTrainConstants.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND).rotation2dFromDeg(),
 
                     )
             } else {
                 Pose2d(
-                    -SwerveDriveConstants.DrivetrainConsts.xPIDController.calculate(
+                    -SwerveDriveConstants.DriveTrainConstants.xPIDController.calculate(
                         drive.getPose().x, next.x
                     )
                             * MAX_SPEED_METERS_PER_SECOND,
-                    -SwerveDriveConstants.DrivetrainConsts.yPIDController.calculate(
+                    -SwerveDriveConstants.DriveTrainConstants.yPIDController.calculate(
                         drive.getPose().y, next.y
                     ) * MAX_SPEED_METERS_PER_SECOND,
-                    (SwerveDriveConstants.DrivetrainConsts.thetaPIDController.calculate(
+                    (SwerveDriveConstants.DriveTrainConstants.thetaPIDController.calculate(
                         drive.getPose().rotation.degrees,
                         TrapezoidProfile.State(to.rotation.degrees, 0.0)
-                    ) * SwerveDriveConstants.DrivetrainConsts.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND).rotation2dFromDeg(),
+                    ) * SwerveDriveConstants.DriveTrainConstants.MAX_ANGULAR_VELOCITY_DEGREES_PER_SECOND).rotation2dFromDeg(),
 
                     )
             }
