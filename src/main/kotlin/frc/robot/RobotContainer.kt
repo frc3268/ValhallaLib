@@ -1,11 +1,11 @@
 package frc.robot
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
+import frc.robot.Constants.GENERAL_TAB
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -14,10 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 class RobotContainer {
-    private val GeneralTab = Shuffleboard.getTab("General")
+    private val GeneralTab = Shuffleboard.getTab(GENERAL_TAB)
     private val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    val elevatorHeightDesiredEntry =
-        CalibrationTab.add("Desired Elevator Height", 0.0).withWidget(BuiltInWidgets.kNumberSlider).entry
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
 
 

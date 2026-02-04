@@ -14,8 +14,6 @@ class GyroIOKauai : GyroIO {
         inputs.connected = gyro.isConnected
         inputs.yawPosition = (gyro.rotation2d.degrees).IEEErem(360.0).rotation2dFromDeg()
         inputs.yawVelocityRadPerSec = gyro.rate.rotation2dFromDeg().radians
-
-
     }
 
     override fun zeroYaw() {

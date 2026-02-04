@@ -13,6 +13,7 @@ import frc.lib.FieldLocation
 import frc.lib.core.robotCore.initCore
 import frc.lib.swerve.SwerveDriveBase
 import frc.robot.Constants
+import frc.robot.Constants.GENERAL_TAB
 import frc.robot.commands.Routines
 import frc.robot.commands.SwerveAutoDrive
 import frc.robot.commands.SwerveJoystickDrive
@@ -24,7 +25,7 @@ object robotCore {
     lateinit var driverController: CommandXboxController
     val autoChooser = SendableChooser<Command>()
 
-    val GeneralTab = Shuffleboard.getTab("General")
+    val GeneralTab = Shuffleboard.getTab(GENERAL_TAB)
     val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
 
 

@@ -40,6 +40,7 @@ object Constants {
         const val ERROR_STD_DEV_PX = 0.10
     }
 
+    const val GENERAL_TAB = "General"
     const val TROUBLESHOOTING_TAB = "Troubleshooting"
     const val CALIBRATION_TAB = "Calibration"
 
