@@ -70,9 +70,6 @@
     }
   },
   "NetworkTables": {
-    "Persistent Values": {
-      "open": false
-    },
     "transitory": {
       "AdvantageKit": {
         "Drive": {
@@ -93,6 +90,9 @@
         "hawkeye-raw": {
           "open": true
         }
+      },
+      "FMSInfo": {
+        "open": true
       },
       "Shuffleboard": {
         "Drivetrain": {
@@ -128,6 +128,9 @@
         "Swerve Module4": {
           "open": true
         },
+        "Tankdrive": {
+          "open": true
+        },
         "open": true
       },
       "SmartDashboard": {
@@ -147,13 +150,13 @@
     }
   },
   "NetworkTables Info": {
-    "Clients": {
-      "open": true
-    },
     "Connections": {
       "open": true
     },
     "Server": {
+      "Publishers": {
+        "open": true
+      },
       "open": true
     },
     "shuffleboard@1": {

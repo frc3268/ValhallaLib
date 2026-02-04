@@ -1,36 +1,60 @@
 package frc.lib.motor.sparkmax
 
+import com.revrobotics.spark.SparkBase
+import com.revrobotics.spark.SparkClosedLoopController
+import com.revrobotics.spark.SparkLowLevel
+import com.revrobotics.spark.SparkMax
+import com.revrobotics.spark.config.SparkFlexConfig
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.units.CurrentUnit
+import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.LinearVelocity
 import edu.wpi.first.units.measure.Voltage
 import frc.lib.motor.Motor
 
+
 class SparkMaxMotor(
     override val encoder: SparkMaxEncoder,
-    override var invert: Boolean
+    val id: Int,
+    val motorType: SparkLowLevel.MotorType,
+    val pidController: PIDController = PIDController(0.0,0.0,0.0)
 ) : Motor {
+
+    override var invert: Boolean = false;
+
+
+    var sparkMax: SparkMax = SparkMax(id, motorType)
+    var controller: SparkClosedLoopController = sparkMax.getClosedLoopController()
+    var config: SparkFlexConfig = SparkFlexConfig()
+
+    init {
+        config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d);
+    }
+
+    override fun setPercent(percent: Double) {
+        sparkMax.set(percent);
+    }
+
     override fun setVoltage(
         voltage: Voltage,
         arbitraryFeedForward: Voltage
     ) {
-        TODO("Not yet implemented")
+        sparkMax.setVoltage(voltage)
     }
 
     override fun setPosition(position: Double) {
-        TODO("Not yet implemented")
+        controller.setReference(position, SparkBase.ControlType.kPosition)
     }
 
     override fun setVelocity(velocity: LinearVelocity) {
-        TODO("Not yet implemented")
+        controller.setReference(velocity.`in`(Units.FeetPerSecond), SparkBase.ControlType.kVelocity)
     }
 
     override fun getVelocityRPMMeasurement(): Double {
         TODO("Not yet implemented")
     }
 
-    override fun getAppliedVoltage(): Double {
-        TODO("Not yet implemented")
-    }
+    override fun getAppliedVoltage(): Double = sparkMax.appliedOutput
 
     override fun getPositionDegreeMeasurement(): Double {
         TODO("Not yet implemented")
@@ -41,15 +65,15 @@ class SparkMaxMotor(
     }
 
     override fun configure() {
-        TODO("Not yet implemented")
+        sparkMax.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
     }
 
     override fun stop() {
-        TODO("Not yet implemented")
+        sparkMax.stopMotor()
     }
 
     override fun close() {
-        TODO("Not yet implemented")
+        sparkMax.close()
     }
 
     override fun reset() {
@@ -60,13 +84,14 @@ class SparkMaxMotor(
 
     }
 
-    // TODO: Check if the right function gets called
-    fun <SparkMaxMotor> follow(motor: SparkMaxMotor): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun <T : Motor> follow(motor: T): Boolean {
-        TODO("Not yet implemented")
+    override fun follow(motor: Motor): Boolean {
+        if (motor is SparkMaxMotor) {
+            return true;
+        }
+        else {
+            assert(false)
+            return false
+        }
     }
 
 }
