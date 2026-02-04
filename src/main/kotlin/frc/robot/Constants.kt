@@ -44,6 +44,8 @@ object Constants {
     const val TROUBLESHOOTING_TAB = "Troubleshooting"
     const val CALIBRATION_TAB = "Calibration"
 
+    const val CAMERA_NAME = "hawkeye"
+
     enum class States { REAL, SIM, REPLAY }
 
     /** Current state of the robot. Should be automatically set. */

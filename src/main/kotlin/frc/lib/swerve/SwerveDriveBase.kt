@@ -26,6 +26,7 @@ import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.MAX_SPEED_METERS_
 import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.kinematics
 import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.thetaPIDController
 import frc.robot.Constants
+import frc.robot.Constants.CAMERA_NAME
 import org.littletonrobotics.junction.Logger
 import org.photonvision.EstimatedRobotPose
 import java.util.*
@@ -135,7 +136,7 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
         // This might still work in REPLAY mode
         if (Constants.mode != Constants.States.REPLAY) {
-            camera = Camera("hawkeye")
+            camera = Camera(CAMERA_NAME)
         }
 
         zeroYaw()
