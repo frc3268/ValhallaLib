@@ -95,25 +95,15 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
         Constants.States.REPLAY -> {
             object : GyroIO {
-                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {
-                    //no
-                }
-
-                override fun zeroYaw() {
-                    //no
-                }
+                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {}
+                override fun zeroYaw() {}
             }
         }
 
         Constants.States.SIM -> {
             object : GyroIO {
-                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {
-                    //no
-                }
-
-                override fun zeroYaw() {
-                    //no
-                }
+                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {}
+                override fun zeroYaw() {}
             }
         }
     }
@@ -122,8 +112,6 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
     private var poseYEntry = shuffleboardTab.add("Pose Y", 0.0).entry
     private var headingEntry =
         shuffleboardTab.add("Robot Heading", gyroInputs.yawPosition.degrees).withWidget(BuiltInWidgets.kGyro).entry
-    private var seesAprilTag =
-        shuffleboardTab.add("Sees April Tag?", false).withWidget(BuiltInWidgets.kBooleanBox).entry
     var field: Field2d
     var field2: Field2d
 
@@ -183,7 +171,6 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
         // Estimate robot pose based on what the camera sees
         if (gyroInputs.yawVelocityRadPerSec < Math.PI) {
-            seesAprilTag.setBoolean(camera!!.frame.hasTargets())
             if (camera!!.frame.hasTargets() && DriverStation.isDisabled()) {
                 val visionEst: Optional<EstimatedRobotPose>? = camera!!.getEstimatedPose()
                 visionEst?.ifPresent { est ->

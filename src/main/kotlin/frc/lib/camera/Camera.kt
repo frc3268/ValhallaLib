@@ -10,6 +10,8 @@ import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.math.util.Units
 import edu.wpi.first.wpilibj.DriverStation
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import frc.robot.Constants
 import org.photonvision.EstimatedRobotPose
 import org.photonvision.PhotonCamera
@@ -23,8 +25,11 @@ import java.util.*
 
 class Camera(name: String) {
     private val limelight = PhotonCamera(name)
+    private val shuffleboardTab = Shuffleboard.getTab("Camera Feed")
     var frame = PhotonPipelineResult()
     private var poseEstimator: PhotonPoseEstimator? = null
+    private var seesAprilTag =
+        shuffleboardTab.add("Sees April Tag?", false).withWidget(BuiltInWidgets.kBooleanBox).entry
 
     private var visionSim: VisionSystemSim? = null;
 
@@ -107,6 +112,7 @@ class Camera(name: String) {
         val results = limelight.allUnreadResults
         if (results.isNotEmpty()) {
             frame = results.last()
+            seesAprilTag.setBoolean(frame.hasTargets())
         }
     }
 

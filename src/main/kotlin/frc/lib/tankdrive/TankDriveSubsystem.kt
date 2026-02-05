@@ -1,11 +1,15 @@
 package frc.lib.tankdrive
 
+import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator
 import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.LinearVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.lib.camera.Camera
+import frc.lib.gyro.GyroIO
+import frc.lib.gyro.GyroIOKauai
+import frc.robot.Constants
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -13,12 +17,37 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
 
     private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
     private var camera: Camera? = null
-    //private var poseEstimator: DifferentialDrivePoseEstimator
+    private var poseEstimator: DifferentialDrivePoseEstimator
+
+    private val gyro = when (Constants.mode) {
+        Constants.States.REAL -> {
+            GyroIOKauai()
+        }
+
+        Constants.States.REPLAY -> {
+            object : GyroIO {
+                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {}
+                override fun zeroYaw() {}
+            }
+        }
+
+        Constants.States.SIM -> {
+            object : GyroIO {
+                override fun updateInputs(inputs: GyroIO.GyroIOInputs) {}
+                override fun zeroYaw() {}
+            }
+        }
+    }
 
     init {
-//        poseEstimator = DifferentialDrivePoseEstimator(
-//
-//        )
+        poseEstimator = DifferentialDrivePoseEstimator(
+            TankDriveConstants.TankConstants.kinematics,
+            gyro
+        )
+    }
+
+    override fun periodic() {
+
     }
 
     fun driveForward(velocity: LinearVelocity): Command = run {
