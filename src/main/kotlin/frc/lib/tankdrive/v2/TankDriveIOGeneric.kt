@@ -1,20 +1,16 @@
-package frc.lib.tankdrive
+package frc.lib.tankdrive.v2
 
 import edu.wpi.first.units.Units
-import edu.wpi.first.units.measure.LinearVelocity
+import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
-import frc.lib.camera.Camera
 import frc.lib.motor.Motor
-import frc.lib.motor.sparkmax.SparkMaxMotor
-import frc.robot.Constants
-import frc.robot.Constants.CAMERA_NAME
+import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
 
-class TankDriveIO(
+class TankDriveIOGeneric(
     val left1: Motor, val left2: Motor,
     val right1: Motor, val right2: Motor
 ) {
-    private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
-    var camera: Camera? = null
+    private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
 
     private var lastLeftVelocity = shuffleboardTab.add("Left Velocity", 0.0).entry
     private var lastRightVelocity = shuffleboardTab.add("Right Velocity", 0.0).entry
@@ -24,29 +20,25 @@ class TankDriveIO(
         right2.follow(right1)
         right1.forceInvert()
         right1.configure()
-
-        if(Constants.mode != Constants.States.REPLAY){
-            camera = Camera(CAMERA_NAME)
-        }
     }
 
-    fun setLeftVelocity(velocity: LinearVelocity) {
+    fun setLeftVelocity(velocity: AngularVelocity) {
         left1.setVelocity(velocity)
-        lastLeftVelocity.setDouble(velocity.`in`(Units.FeetPerSecond));
+        lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
         println(velocity.toLongString())
     }
 
-    fun setRightVelocity(velocity: LinearVelocity) {
+    fun setRightVelocity(velocity: AngularVelocity) {
         right1.setVelocity(velocity)
-        lastRightVelocity.setDouble(velocity.`in`(Units.FeetPerSecond));
+        lastRightVelocity.setDouble(velocity.`in`(Units.RPM));
     }
 
-    fun setVelocity(leftVel: LinearVelocity, rightVel: LinearVelocity) {
+    fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity) {
         setLeftVelocity(leftVel)
         setRightVelocity(rightVel)
     }
 
-    fun setVelocityBoth(velocity: LinearVelocity) {
+    fun setVelocityBoth(velocity: AngularVelocity) {
         setVelocity(velocity, velocity)
     }
 

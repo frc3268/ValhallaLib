@@ -4,11 +4,11 @@ import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkClosedLoopController
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
-import com.revrobotics.spark.config.SparkFlexConfig
+import com.revrobotics.spark.config.SparkMaxConfig
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.units.CurrentUnit
 import edu.wpi.first.units.Units
-import edu.wpi.first.units.measure.LinearVelocity
+import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.units.measure.Voltage
 import frc.lib.motor.Motor
 
@@ -17,7 +17,7 @@ class SparkMaxMotor(
     override val encoder: SparkMaxEncoder,
     val id: Int,
     val motorType: SparkLowLevel.MotorType,
-    val pidController: PIDController = PIDController(0.0,0.0,0.0)
+    val pidController: PIDController = PIDController(0.0, 0.0, 0.0)
 ) : Motor {
 
     override var invert: Boolean = false;
@@ -25,7 +25,7 @@ class SparkMaxMotor(
 
     var sparkMax: SparkMax = SparkMax(id, motorType)
     var controller: SparkClosedLoopController = sparkMax.getClosedLoopController()
-    var config: SparkFlexConfig = SparkFlexConfig()
+    var config: SparkMaxConfig = SparkMaxConfig()
 
     init {
         config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d);
@@ -46,8 +46,8 @@ class SparkMaxMotor(
         controller.setReference(position, SparkBase.ControlType.kPosition)
     }
 
-    override fun setVelocity(velocity: LinearVelocity) {
-        controller.setReference(velocity.`in`(Units.FeetPerSecond), SparkBase.ControlType.kVelocity)
+    override fun setVelocity(velocity: AngularVelocity) {
+        controller.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
     }
 
     override fun getVelocityRPMMeasurement(): Double {
@@ -87,8 +87,7 @@ class SparkMaxMotor(
     override fun follow(motor: Motor): Boolean {
         if (motor is SparkMaxMotor) {
             return true;
-        }
-        else {
+        } else {
             assert(false)
             return false
         }

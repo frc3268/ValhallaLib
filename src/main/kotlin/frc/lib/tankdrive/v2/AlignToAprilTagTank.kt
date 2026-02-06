@@ -1,4 +1,4 @@
-package frc.lib.tankdrive
+package frc.lib.tankdrive.v2
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout
 import edu.wpi.first.apriltag.AprilTagFields
@@ -77,7 +77,7 @@ class AlignToAprilTagTank(
             /* Calculates angle between the bot and apriltag and rotates facing it */
             Phase.TURN_TO_TARGET -> {
                 val turnError = normalizeAngle(angleToTarget - currentAngle)
-                val turnOutput = Units.FeetPerSecond.of(turnPID.calculate(turnError, 0.0))
+                val turnOutput = Units.RPM.of(turnPID.calculate(turnError, 0.0))
                 // turns the robot
                 drive.io.setVelocity(-turnOutput, turnOutput)
 
@@ -88,7 +88,7 @@ class AlignToAprilTagTank(
             }
             /* Drive tankdrive towards apriltag */
             Phase.DRIVE_TO_TARGET -> {
-                val driveOutput = Units.FeetPerSecond.of(drivePID.calculate(distance, 0.0))
+                val driveOutput = Units.RPM.of(drivePID.calculate(distance, 0.0))
                 drive.io.setVelocity(-driveOutput, -driveOutput)
 
                 if (distance < 0.2) {

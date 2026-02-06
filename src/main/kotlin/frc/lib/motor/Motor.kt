@@ -3,7 +3,7 @@ package frc.lib.motor
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.units.CurrentUnit
 import edu.wpi.first.units.Units.Volts
-import edu.wpi.first.units.measure.LinearVelocity
+import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.units.measure.Voltage
 import frc.robot.Constants
 
@@ -42,7 +42,7 @@ interface Motor {
     /** Move the motor to the specified [velocity]
      * @param[velocity] Specified velocity to set motor to
      */
-    fun setVelocity(velocity: LinearVelocity)
+    fun setVelocity(velocity: AngularVelocity)
 
     /** Get the velocity in rotations per minute
      * @return Current velocity in RPM

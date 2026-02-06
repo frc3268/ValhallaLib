@@ -1,24 +1,32 @@
-package frc.lib.tankdrive
+package frc.lib.tankdrive.v2
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator
+import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.units.Units
-import edu.wpi.first.units.measure.LinearVelocity
+import edu.wpi.first.units.measure.AngularVelocity
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.lib.camera.Camera
 import frc.lib.gyro.GyroIO
+import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
+import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
+import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
 import frc.robot.Constants
+import frc.robot.Constants.CAMERA_NAME
 import kotlin.math.abs
 import kotlin.math.max
 
-class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
+class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : SubsystemBase() {
 
-    private val shuffleboardTab = Shuffleboard.getTab("Tankdrive")
+    private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
     private var camera: Camera? = null
     private var poseEstimator: DifferentialDrivePoseEstimator
 
+    private val gyroInputs = GyroIOInputsAutoLogged()
     private val gyro = when (Constants.mode) {
         Constants.States.REAL -> {
             GyroIOKauai()
@@ -39,10 +47,21 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
         }
     }
 
+    private var poseXEntry = shuffleboardTab.add("Pose X", 0.0).entry
+    private var poseYEntry = shuffleboardTab.add("Pose Y", 0.0).entry
+    private var headingEntry =
+        shuffleboardTab.add("Robot Heading", gyroInputs.yawPosition.degrees).withWidget(BuiltInWidgets.kGyro).entry
+
     init {
+        if (Constants.mode != Constants.States.REPLAY) {
+            camera = Camera(CAMERA_NAME)
+        }
         poseEstimator = DifferentialDrivePoseEstimator(
             TankDriveConstants.TankConstants.kinematics,
-            gyro
+            getYaw(),
+            0.0,
+            0.0,
+            startingPose,
         )
     }
 
@@ -50,22 +69,22 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
 
     }
 
-    fun driveForward(velocity: LinearVelocity): Command = run {
+    fun driveForward(velocity: AngularVelocity): Command = run {
         io.setVelocityBoth(velocity)
     }
 
-    fun turnLeft(velocity: LinearVelocity): Command = run {
+    fun turnLeft(velocity: AngularVelocity): Command = run {
         io.setVelocity(-velocity, velocity)
     }
 
-    fun turnRight(velocity: LinearVelocity): Command = run {
+    fun turnRight(velocity: AngularVelocity): Command = run {
         io.setVelocity(velocity, -velocity)
     }
 
     fun arcadeDrive(rotate: Double, drive: Double): Command = run {
-        val maximum = Units.FeetPerSecond.of(max(abs(drive), abs(rotate)))
-        val total = Units.FeetPerSecond.of(rotate + drive)
-        val difference = Units.FeetPerSecond.of(drive - rotate)
+        val maximum = Units.RPM.of(max(abs(drive), abs(rotate)))
+        val total = Units.RPM.of(rotate + drive)
+        val difference = Units.RPM.of(drive - rotate)
         if (drive >= 0) {
             if (rotate >= 0) {
                 io.setVelocity(maximum, difference)
@@ -82,7 +101,14 @@ class TankDriveSubsystem(val io: TankDriveIO) : SubsystemBase() {
     }
 
     fun stop() {
-        io.left1.stop()
-        io.right1.stop()
+        io.stop()
     }
+
+    private fun getYaw(): Rotation2d = gyroInputs.yawPosition
+
+    fun getPose(): Pose2d = Pose2d(
+        poseEstimator.estimatedPosition.x,
+        poseEstimator.estimatedPosition.y,
+        poseEstimator.estimatedPosition.rotation
+    )
 }
