@@ -66,7 +66,8 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
     }
 
     override fun periodic() {
-
+        camera!!.captureFrame()
+        poseEstimator.update(getYaw(), 0.0, 0.0)
     }
 
     fun driveForward(velocity: AngularVelocity): Command = run {

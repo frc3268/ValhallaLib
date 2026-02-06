@@ -91,6 +91,7 @@ class AlignToAprilTagTank(
                 val driveOutput = Units.RPM.of(drivePID.calculate(distance, 0.0))
                 drive.io.setVelocity(-driveOutput, -driveOutput)
 
+                // Nice, however this sort of stuff could use a PID controller for better precision.
                 if (distance < 0.2) {
                     phase = Phase.DONE
                 }
