@@ -3,7 +3,7 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2025.2.1"
     id "org.jetbrains.kotlin.jvm" version '1.6.0'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.22'
-    id "org.jetbrains.dokka" version "2.1.0"
+//    id "org.jetbrains.dokka" version "2.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
