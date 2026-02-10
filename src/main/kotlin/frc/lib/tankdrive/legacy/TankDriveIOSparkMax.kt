@@ -18,15 +18,15 @@ class TankDriveIOSparkMax {
 
     // TODO: Get the device IDs
     private val left1: SparkMax = SparkMax(0, SparkLowLevel.MotorType.kBrushed)
-    private val left2: SparkMax = SparkMax(0, SparkLowLevel.MotorType.kBrushed)
-    private val right1: SparkMax = SparkMax(0, SparkLowLevel.MotorType.kBrushed)
-    private val right2: SparkMax = SparkMax(0, SparkLowLevel.MotorType.kBrushed)
+    private val left2: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
+    private val right1: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
+    private val right2: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
 
     var configLeft1: SparkMaxConfig = SparkMaxConfig()
     var configLeft2: SparkMaxConfig = SparkMaxConfig()
     var configRight1: SparkMaxConfig = SparkMaxConfig()
     var configRight2: SparkMaxConfig = SparkMaxConfig()
-    
+
     init {
         configLeft2.follow(left1)
         configRight2.follow(right1)

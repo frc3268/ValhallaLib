@@ -7,6 +7,7 @@ import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
+import edu.wpi.first.wpilibj.smartdashboard.Field2d
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.lib.camera.Camera
@@ -16,6 +17,7 @@ import frc.lib.gyro.GyroIOKauai
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
 import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.robot.Constants
+import org.littletonrobotics.junction.Logger
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -24,6 +26,8 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
     private val shuffleboardTab = Shuffleboard.getTab(TankDriveConstants.TANK_DRIVE_TAB)
     private var camera: Camera? = null
     private var poseEstimator: DifferentialDrivePoseEstimator
+
+    var field: Field2d
 
     private val gyroInputs = GyroIOInputsAutoLogged()
     private val gyro = when (Constants.mode) {
@@ -58,15 +62,23 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
         poseEstimator = DifferentialDrivePoseEstimator(
             TankDriveConstants.TankConstants.kinematics,
             getYaw(),
-            0.0,
-            0.0,
+            0.3,
+            0.3,
             startingPose,
         )
+        field = Field2d()
+        shuffleboardTab.add(field).withWidget(BuiltInWidgets.kField)
+
     }
 
     override fun periodic() {
         camera!!.captureFrame()
-        poseEstimator.update(getYaw(), 0.0, 0.0)
+        poseEstimator.update(getYaw(), 0.3, 0.3)
+
+        field.robotPose = getPose()
+        poseXEntry.setDouble(getPose().x)
+        poseYEntry.setDouble(getPose().y)
+        Logger.recordOutput("Robot/Pose", getPose())
     }
 
     fun driveForward(velocity: AngularVelocity): Command = run {

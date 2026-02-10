@@ -40,7 +40,7 @@ class RobotContainer {
 
     val teleopCommand = TankJoystickDrive(
         tankDrive,
-        { driverController.getRawAxis(1) },
+        { -driverController.getRawAxis(1) },
         { driverController.getRawAxis(0) },
     )
 
@@ -71,7 +71,7 @@ class RobotContainer {
             println("Abandon all hope ye who debug here")
         }
 
-        val rbChooser = SendableChooser<Command>()
+        //val rbChooser = SendableChooser<Command>()
 
 //        driverController.leftTrigger().onTrue(tankDriveSubsystem.driveForward(0.7));
 //        driverController.rightTrigger().onTrue(tankDriveSubsystem.driveForward(0.0));
@@ -92,6 +92,8 @@ class RobotContainer {
 //        driverController.povRight().onTrue(Routines.inchRight(driveSubsystem))
 //        driverController.povLeft().onTrue(Routines.inchLeft(driveSubsystem))
 //        driveSubsystem.defaultCommand = teleopCommand
+
+        tankDrive.defaultCommand = teleopCommand
 
     }
 
