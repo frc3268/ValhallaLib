@@ -82,21 +82,21 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
         io.setVelocity(velocity, -velocity)
     }
 
-    fun arcadeDrive(rotate: Double, drive: Double): Command = run {
-        val maximum = Units.RPM.of(max(abs(drive), abs(rotate)))
-        val total = Units.RPM.of(rotate + drive)
-        val difference = Units.RPM.of(drive - rotate)
-        if (drive >= 0) {
-            if (rotate >= 0) {
-                io.setVelocity(maximum, difference)
+    fun arcadeDrive(x: Double, y: Double, gain: Double): Command = run {
+        val maximum = Units.RPM.of(max(abs(y), abs(x)))
+        val total = Units.RPM.of(x + y)
+        val difference = Units.RPM.of(y - x)
+        if (y >= 0) {
+            if (x >= 0) {
+                io.setVelocity(maximum*gain, difference*gain)
             } else {
-                io.setVelocity(total, maximum)
+                io.setVelocity(total*gain, maximum*gain)
             }
         } else {
-            if (rotate >= 0) {
-                io.setVelocity(total, -maximum)
+            if (x >= 0) {
+                io.setVelocity(total*gain, -maximum*gain)
             } else {
-                io.setVelocity(-maximum, difference)
+                io.setVelocity(-maximum*gain, difference*gain)
             }
         }
     }
