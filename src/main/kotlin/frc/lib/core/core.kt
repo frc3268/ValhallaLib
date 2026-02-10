@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController
 import frc.lib.FieldLocation
 import frc.lib.core.robotCore.initCore
 import frc.lib.swerve.SwerveDriveBase
+import frc.lib.swerve.SwerveJoystickDrive
 import frc.robot.Constants
 import frc.robot.Constants.GENERAL_TAB
 import frc.robot.commands.Routines
 import frc.robot.commands.SwerveAutoDrive
-import frc.robot.commands.SwerveJoystickDrive
 
 /** A Basic core singleton. *WARNING: You must call [initCore] before using or acessing this singleton!* */
 object robotCore {
@@ -52,7 +52,7 @@ object robotCore {
         check(HAL.initialize(500, 0)) { "Failed to initialize. Terminating." }
 
         // report robot language as Kotlin
-        // 6 Means kotlin in French
+        // 6 Means kotlin in Fr*nch
         HAL.report(FRCNetComm.tResourceType.kResourceType_Language, 6)
 
         driveSubsystem = SwerveDriveBase(Pose2d());

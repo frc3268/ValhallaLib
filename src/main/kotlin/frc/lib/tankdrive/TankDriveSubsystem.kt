@@ -1,4 +1,4 @@
-package frc.lib.tankdrive.v2
+package frc.lib.tankdrive
 
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
@@ -14,15 +14,14 @@ import frc.lib.gyro.GyroIO
 import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
-import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
+import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.robot.Constants
-import frc.robot.Constants.CAMERA_NAME
 import kotlin.math.abs
 import kotlin.math.max
 
 class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : SubsystemBase() {
 
-    private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
+    private val shuffleboardTab = Shuffleboard.getTab(TankDriveConstants.TANK_DRIVE_TAB)
     private var camera: Camera? = null
     private var poseEstimator: DifferentialDrivePoseEstimator
 
@@ -54,7 +53,7 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
 
     init {
         if (Constants.mode != Constants.States.REPLAY) {
-            camera = Camera(CAMERA_NAME)
+            camera = Camera(Constants.CAMERA_NAME)
         }
         poseEstimator = DifferentialDrivePoseEstimator(
             TankDriveConstants.TankConstants.kinematics,
@@ -88,15 +87,15 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
         val difference = Units.RPM.of(y - x)
         if (y >= 0) {
             if (x >= 0) {
-                io.setVelocity(maximum*gain, difference*gain)
+                io.setVelocity(maximum * gain, difference * gain)
             } else {
-                io.setVelocity(total*gain, maximum*gain)
+                io.setVelocity(total * gain, maximum * gain)
             }
         } else {
             if (x >= 0) {
-                io.setVelocity(total*gain, -maximum*gain)
+                io.setVelocity(total * gain, -maximum * gain)
             } else {
-                io.setVelocity(-maximum*gain, difference*gain)
+                io.setVelocity(-maximum * gain, difference * gain)
             }
         }
     }

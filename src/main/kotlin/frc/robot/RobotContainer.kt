@@ -1,10 +1,14 @@
 package frc.robot
 
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
+import frc.lib.tankdrive.TankDriveSubsystem
+import frc.lib.tankdrive.TankJoystickDrive
+import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
 import frc.robot.Constants.GENERAL_TAB
 
 /**
@@ -21,6 +25,11 @@ class RobotContainer {
 
     val autochooser = SendableChooser<Command>()
 
+    val tankDrive = TankDriveSubsystem(
+        TankDriveIOSparkMax(),
+        Pose2d()
+    )
+
 //    val teleopCommand = SwerveJoystickDrive(
 //        driveSubsystem,
 //        { driverController.getRawAxis(1) },
@@ -28,6 +37,12 @@ class RobotContainer {
 //        { -driverController.getRawAxis(4) },
 //        { true }
 //    )
+
+    val teleopCommand = TankJoystickDrive(
+        tankDrive,
+        { driverController.getRawAxis(1) },
+        { driverController.getRawAxis(0) },
+    )
 
 
 //    fun goto(goal: FieldLocation): Command {
