@@ -13,7 +13,7 @@ import frc.robot.Constants
  *
  * Other configs, **such as [PIDController]**, needs to be configured differently based off of implementations.
  */
-interface Motor {
+interface IMotor {
 
     /** ID of the motor. Should be unique for each motor */
     // val id: Int
@@ -21,7 +21,7 @@ interface Motor {
     /** Should the motor be reversed? */
     // var inverse: Boolean
 
-    val encoder: MotorEncoder
+    val encoder: IMotorEncoder
 
     /** Should we invert the motor output?*/
     var invert: Boolean
@@ -70,7 +70,7 @@ interface Motor {
     fun forceInvert()
 
     /** Sets this motor to follow [motor].*/
-    fun follow(motor: Motor): Boolean
+    fun follow(motor: IMotor): Boolean
 
     /** Calls a periodic function based off of current constants state */
     fun autoPeriodic() {

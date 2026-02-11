@@ -1,8 +1,11 @@
 package frc.lib.tankdrive
 
 import edu.wpi.first.math.MathUtil
+import edu.wpi.first.util.sendable.Sendable
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.Constants
 import java.util.function.DoubleSupplier
@@ -13,8 +16,8 @@ class TankJoystickDrive(
     private val rotation: DoubleSupplier,
 ) : Command() {
 
-    private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.TROUBLESHOOTING_TAB)
-    private val gain = tab.add("TankDrive gain", 1.0).entry
+    private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
+    private val gain = tab.add("TankDrive gain", 20.0).withWidget(BuiltInWidgets.kNumberSlider).entry
 
     init {
         // Use addRequirements() here to declare subsystem dependencies.

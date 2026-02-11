@@ -20,9 +20,9 @@ class TankDriveIOSim : ITankDriveIO {
     private var lastRightVelocity = shuffleboardTab.add("Right Velocity", 0.0).entry
 
     // TODO: Get the device IDs
-    private val left1: SparkMax = SparkMax(0, SparkLowLevel.MotorType.kBrushed)
+    private val left1: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
     // private val left2: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
-    private val right1: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
+    private val right1: SparkMax = SparkMax(5, SparkLowLevel.MotorType.kBrushed)
     // private val right2: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
 
     var leftGearBox: DCMotor = DCMotor.getNEO(2)
@@ -88,7 +88,7 @@ class TankDriveIOSim : ITankDriveIO {
     }
 
     override fun simulationPeriodic() {
-        // In this method, we update our simulation of what our arm is doing
+/*        // In this method, we update our simulation of what our arm is doing
         // First, we set our "inputs" (voltages)
         m_armSim.setInput(m_motorSim.getAppliedOutput() * RoboRioSim.getVInVoltage());
 
@@ -109,6 +109,6 @@ class TankDriveIOSim : ITankDriveIO {
 
         // Update any external GUI displays or values as desired
         // For example, a Mechanism2d Arm based on the simulated arm angle
-        m_arm.setAngle(Units.radiansToDegrees(m_armSim.getAngleRads()));
+        m_arm.setAngle(Units.radiansToDegrees(m_armSim.getAngleRads()));*/
     }
 }

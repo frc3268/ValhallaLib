@@ -1,11 +1,11 @@
 package frc.lib.motor.sparkmax
 
 import com.revrobotics.spark.config.SparkMaxConfig
-import frc.lib.motor.MotorEncoder
+import frc.lib.motor.IMotorEncoder
 
 class SparkMaxEncoder(
     var motorConfig: SparkMaxConfig = SparkMaxConfig()
-) : MotorEncoder {
+) : IMotorEncoder {
     override fun configurate() {
         TODO("Not yet implemented")
     }
