@@ -14,14 +14,15 @@ import frc.lib.camera.Camera
 import frc.lib.gyro.GyroIO
 import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
-import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
+import frc.lib.rotation2dFromRad
+import frc.lib.swerve.SwerveDriveConstants
 import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.robot.Constants
 import org.littletonrobotics.junction.Logger
 import kotlin.math.abs
 import kotlin.math.max
 
-class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : SubsystemBase() {
+class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : SubsystemBase() {
 
     private val shuffleboardTab = Shuffleboard.getTab(TankDriveConstants.TANK_DRIVE_TAB)
     private var camera: Camera? = null
@@ -62,8 +63,8 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
         poseEstimator = DifferentialDrivePoseEstimator(
             TankDriveConstants.TankConstants.kinematics,
             getYaw(),
-            0.3,
-            0.3,
+            io.getLeftDistance(),
+            io.getRightDistance(),
             startingPose,
         )
         field = Field2d()
@@ -72,8 +73,26 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
     }
 
     override fun periodic() {
+
+        io.periodic()
+
+        if (Constants.mode == Constants.States.REAL) {
+            gyro.updateInputs(gyroInputs)
+        } else {
+            //val deltas = modules.map { it.delta }.toTypedArray()
+            val twist = TankDriveConstants.TankConstants.kinematics.toTwist2d(
+                io.getLeftDistance(),
+                io.getRightDistance(),
+            )
+            gyroInputs.yawPosition = (gyroInputs.yawPosition.plus(twist.dtheta.rotation2dFromRad()))
+        }
+
         camera!!.captureFrame()
-        poseEstimator.update(getYaw(), 0.3, 0.3)
+        poseEstimator.update(
+            getYaw(),
+            io.getLeftDistance(),
+            io.getRightDistance()
+        )
 
         field.robotPose = getPose()
         poseXEntry.setDouble(getPose().x)
@@ -123,4 +142,8 @@ class TankDriveSubsystem(val io: TankDriveIOSparkMax, startingPose: Pose2d) : Su
         poseEstimator.estimatedPosition.y,
         poseEstimator.estimatedPosition.rotation
     )
+
+    override fun simulationPeriodic() {
+        io.simulationPeriodic()
+    }
 }

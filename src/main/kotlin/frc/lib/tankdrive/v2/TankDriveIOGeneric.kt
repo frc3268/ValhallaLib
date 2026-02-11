@@ -4,12 +4,13 @@ import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import frc.lib.motor.Motor
+import frc.lib.tankdrive.ITankDriveIO
 import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
 
 class TankDriveIOGeneric(
     val left1: Motor, val left2: Motor,
     val right1: Motor, val right2: Motor
-) {
+) : ITankDriveIO {
     private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
 
     private var lastLeftVelocity = shuffleboardTab.add("Left Velocity", 0.0).entry
@@ -22,27 +23,36 @@ class TankDriveIOGeneric(
         right1.configure()
     }
 
-    fun setLeftVelocity(velocity: AngularVelocity) {
+    override fun setLeftVelocity(velocity: AngularVelocity) {
         left1.setVelocity(velocity)
         lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
         println(velocity.toLongString())
     }
 
-    fun setRightVelocity(velocity: AngularVelocity) {
+    override fun setRightVelocity(velocity: AngularVelocity) {
         right1.setVelocity(velocity)
         lastRightVelocity.setDouble(velocity.`in`(Units.RPM));
     }
 
-    fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity) {
+    override fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity) {
         setLeftVelocity(leftVel)
         setRightVelocity(rightVel)
     }
 
-    fun setVelocityBoth(velocity: AngularVelocity) {
+    override fun setVelocityBoth(velocity: AngularVelocity) {
         setVelocity(velocity, velocity)
     }
 
-    fun stop() {
+    // Not sure if getPositionDegreeMeasurement would work in this case
+    override fun getLeftDistance(): Double {
+        return left1.getPositionDegreeMeasurement()
+    }
+
+    override fun getRightDistance(): Double {
+        return right1.getPositionDegreeMeasurement()
+    }
+
+    override fun stop() {
         left1.stop()
         right1.stop()
         lastLeftVelocity.setDouble(0.0);
