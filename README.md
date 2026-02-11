@@ -12,7 +12,7 @@ This library abides (or tries to abide) to the Kotlin conventions, as seen below
 - Commands: End with "Command"
 - Constants: UPPERCASE_WITH_UNDERSCORES
 - Methods/Functions: startWithLowerCaseThenCamelCase
-- Classes: CamelCase
+- Classes: StartWithUpperCaseThenPascalCase
 
 ### Structure
 - `/src/main/kotlin/frc/lib` - All the library code (non wpilib code for example) go here
