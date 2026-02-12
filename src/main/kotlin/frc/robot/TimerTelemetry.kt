@@ -13,7 +13,7 @@ class TimerTelemetry : SubsystemBase() {
     private val timer = Timer()
 
     init{
-        timer.Start()
+        timer.start()
     }
 
     override fun periodic() {
