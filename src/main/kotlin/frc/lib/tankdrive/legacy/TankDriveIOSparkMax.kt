@@ -35,6 +35,11 @@ class TankDriveIOSparkMax : ITankDriveIO {
 
         // left1.encoder.position
 
+        // Pid, Needs tuning
+        configLeft1.closedLoop.p(1.0).i(0.0).d(0.0);
+        configRight1.closedLoop.p(1.0).i(0.0).d(0.0);
+
+
         left1.configure(configLeft1, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
         left2.configure(configLeft2, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
 
@@ -49,15 +54,11 @@ class TankDriveIOSparkMax : ITankDriveIO {
             SparkBase.PersistMode.kPersistParameters
         )
 
-        // Pid, Needs tuning
-        configLeft1.closedLoop.p(0.0).i(0.0).d(0.0);
-
     }
 
     override fun setLeftVelocity(velocity: AngularVelocity) {
         left1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
         lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
-        println(velocity.toLongString())
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {
