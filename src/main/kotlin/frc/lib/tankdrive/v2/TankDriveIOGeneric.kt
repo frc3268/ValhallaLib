@@ -3,13 +3,13 @@ package frc.lib.tankdrive.v2
 import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
-import frc.lib.motor.Motor
+import frc.lib.motor.IMotor
 import frc.lib.tankdrive.ITankDriveIO
 import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
 
 class TankDriveIOGeneric(
-    val left1: Motor, val left2: Motor,
-    val right1: Motor, val right2: Motor
+    val left1: IMotor, val left2: IMotor,
+    val right1: IMotor, val right2: IMotor
 ) : ITankDriveIO {
     private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
 

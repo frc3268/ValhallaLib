@@ -1,6 +1,6 @@
 package frc.lib.motor
 
-interface MotorEncoder {
+interface IMotorEncoder {
 //    var velocity: LinearVelocity
 //
 //    var position: Double

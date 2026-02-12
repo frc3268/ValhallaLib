@@ -58,7 +58,7 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
 
     init {
         if (Constants.mode != Constants.States.REPLAY) {
-            camera = Camera(Constants.CAMERA_NAME)
+            // camera = Camera(Constants.CAMERA_NAME)
         }
         poseEstimator = DifferentialDrivePoseEstimator(
             TankDriveConstants.TankConstants.kinematics,
@@ -87,7 +87,7 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
             gyroInputs.yawPosition = (gyroInputs.yawPosition.plus(twist.dtheta.rotation2dFromRad()))
         }
 
-        camera!!.captureFrame()
+        // camera!!.captureFrame()
         poseEstimator.update(
             getYaw(),
             io.getLeftDistance(),
