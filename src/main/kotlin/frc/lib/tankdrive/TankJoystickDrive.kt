@@ -31,12 +31,13 @@ class TankJoystickDrive(
 
     // Called every time the scheduler runs while the command is scheduled.
     override fun execute() {
+
         /* Get Values, Deadband, Convert to arcade drive components */
         val x: Double = MathUtil.applyDeadband(rotation.asDouble, Constants.OperatorConstants.STICK_DEADBAND)
         val y: Double = MathUtil.applyDeadband(forward.asDouble, Constants.OperatorConstants.STICK_DEADBAND)
 
         /* Drive */
-        drive.arcadeDrive(x, y, gain.get().double)
+        drive.arcadeDrive(x, y, gain.get().double).execute()
     }
 
     // Called once the command ends or is interrupted.
