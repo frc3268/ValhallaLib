@@ -90,5 +90,4 @@ class TankDriveIOSparkMax : ITankDriveIO {
         lastLeftVelocity.setDouble(0.0);
         lastLeftVelocity.setDouble(0.0);
     }
-
 }
