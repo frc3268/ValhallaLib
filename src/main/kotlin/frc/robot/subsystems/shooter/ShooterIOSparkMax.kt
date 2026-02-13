@@ -10,8 +10,8 @@ import jdk.jfr.Percentage
 
 class ShooterIOSparkMax : IShooterIO {
     // Those who know...
-    private val motorBarney: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
-    private val motorIsaac: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
+    private val motorBarney: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
+    private val motorIsaac: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
 
     var configBarney: SparkMaxConfig = SparkMaxConfig()
     var configIsaac: SparkMaxConfig = SparkMaxConfig()

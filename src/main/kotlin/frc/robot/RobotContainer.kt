@@ -10,6 +10,8 @@ import frc.lib.tankdrive.TankDriveSubsystem
 import frc.lib.tankdrive.TankJoystickDrive
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
 import frc.robot.Constants.GENERAL_TAB
+import frc.robot.subsystems.shooter.ShooterIOSparkMax
+import frc.robot.subsystems.shooter.ShooterSubsystem
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +31,10 @@ class RobotContainer {
     val tankDrive = TankDriveSubsystem(
         TankDriveIOSparkMax(),
         Pose2d()
+    )
+
+    val shooter = ShooterSubsystem(
+        ShooterIOSparkMax(),
     )
 
 //    val teleopCommand = SwerveJoystickDrive(

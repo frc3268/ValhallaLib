@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.CommandScheduler
 import frc.robot.Constants
 import java.util.function.DoubleSupplier
 
@@ -37,7 +38,10 @@ class TankJoystickDrive(
         val y: Double = MathUtil.applyDeadband(forward.asDouble, Constants.OperatorConstants.STICK_DEADBAND)
 
         /* Drive */
-        drive.arcadeDrive(x, y, gain.getDouble(1.0)).schedule()
+        // USE SCHEDULE INSTEAD
+        //drive.arcadeDrive(x, y, gain.getDouble(1.0)).schedule()
+        CommandScheduler.getInstance().schedule(drive.arcadeDrive(x, y, gain.getDouble(1.0)))
+
     }
 
     // Called once the command ends or is interrupted.
