@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkMax
 import com.revrobotics.spark.config.SparkMaxConfig
 import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
+import jdk.jfr.Percentage
 
 class ShooterIOSparkMax : IShooterIO {
     // Those who know...
@@ -32,8 +33,8 @@ class ShooterIOSparkMax : IShooterIO {
         )
     }
 
-    override fun setIntakeVelocity(velocity: AngularVelocity) {
-        motorIsaac.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+    override fun setIntakePercent(percentage: Double) {
+        motorIsaac.set(percentage)
     }
 
     override fun setShooterVelocity(velocity: AngularVelocity) {
