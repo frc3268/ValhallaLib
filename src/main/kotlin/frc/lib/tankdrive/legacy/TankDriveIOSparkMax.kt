@@ -17,7 +17,6 @@ class TankDriveIOSparkMax : ITankDriveIO {
     private var lastLeftVelocity = shuffleboardTab.add("Left Velocity", 0.0).entry
     private var lastRightVelocity = shuffleboardTab.add("Right Velocity", 0.0).entry
 
-    // TODO: Get the device IDs
     private val left1: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
     private val left2: SparkMax = SparkMax(4, SparkLowLevel.MotorType.kBrushed)
     private val right1: SparkMax = SparkMax(5, SparkLowLevel.MotorType.kBrushed)
@@ -33,15 +32,22 @@ class TankDriveIOSparkMax : ITankDriveIO {
         configRight2.follow(right1)
         configRight1.inverted(true);
 
-        // left1.encoder.position
-
         // Pid, Needs tuning
         configLeft1.closedLoop.p(1.0).i(0.0).d(0.0);
         configRight1.closedLoop.p(1.0).i(0.0).d(0.0);
 
 
-        left1.configure(configLeft1, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
-        left2.configure(configLeft2, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
+        left1.configure(
+            configLeft1,
+            SparkBase.ResetMode.kResetSafeParameters,
+            SparkBase.PersistMode.kPersistParameters
+        )
+
+        left2.configure(
+            configLeft2,
+            SparkBase.ResetMode.kResetSafeParameters,
+            SparkBase.PersistMode.kPersistParameters
+        )
 
         right1.configure(
             configRight1,
