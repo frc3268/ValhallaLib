@@ -17,7 +17,7 @@ class TankJoystickDrive(
 ) : Command() {
 
     private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    private val gain = tab.add("TankDrive gain", 20.0).withWidget(BuiltInWidgets.kNumberSlider).entry
+    private val gain = tab.addPersistent("TankDrive gain", 1.0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(mapOf("min" to 0, "max" to 10)).entry
 
     init {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -37,7 +37,7 @@ class TankJoystickDrive(
         val y: Double = MathUtil.applyDeadband(forward.asDouble, Constants.OperatorConstants.STICK_DEADBAND)
 
         /* Drive */
-        drive.arcadeDrive(x, y, gain.get().double).execute()
+        drive.arcadeDrive(x, y, gain.getDouble(1.0)).schedule()
     }
 
     // Called once the command ends or is interrupted.
