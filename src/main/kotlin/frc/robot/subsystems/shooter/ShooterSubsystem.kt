@@ -18,7 +18,7 @@ class ShooterSubsystem(val io: IShooterIO): SubsystemBase() {
     fun stopIntake(): Command = run {
         io.setIntakePercent(0.0)
     }
-    
+
     fun stop(): Command = run {
         io.stop()
     }

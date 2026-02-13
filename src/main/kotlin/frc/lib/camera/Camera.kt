@@ -34,10 +34,11 @@ class Camera(name: String) {
     private var visionSim: VisionSystemSim? = null;
 
     private var robotToCam = Transform3d(
+        // TODO: Check sign of these measurements
         Translation3d(
-            Units.inchesToMeters(-11.0),
-            Units.inchesToMeters(11.0),
-            Units.inchesToMeters(8.4),
+            Units.inchesToMeters(0.0),
+            Units.inchesToMeters(12.4),
+            Units.inchesToMeters(-14.74),
         ),
         Rotation3d(
             0.0,
