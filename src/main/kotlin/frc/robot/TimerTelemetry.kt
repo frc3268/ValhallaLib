@@ -9,14 +9,17 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 class TimerTelemetry : SubsystemBase() {
 
     private val timerTab = Shuffleboard.getTab(Constants.GENERAL_TAB)
-    private var TimerWidget = timerTab.add("Time:", 0.0).entry
-    private val timer = Timer()
+    private var timerWidget = timerTab.add("Time:", 0.0).entry
+    private var canScoreWidget = timerTab.add("Can score?", false).entry
 
-    init{
-        timer.start()
+    init {
+
     }
-
     override fun periodic() {
-        TimerWidget.setDouble(timer.get())
+        val ct = Timer.getMatchTime() // Current time
+        timerWidget.setDouble(ct)
+        if (ct > 20) {
+            canScoreWidget.setBoolean(true)
+        }
     }
 }
