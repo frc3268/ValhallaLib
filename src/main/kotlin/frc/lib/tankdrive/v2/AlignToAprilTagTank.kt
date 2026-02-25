@@ -5,35 +5,43 @@ import edu.wpi.first.apriltag.AprilTagFields
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.units.Units
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import frc.lib.camera.Camera
 import frc.lib.tankdrive.TankDriveSubsystem
+import frc.robot.Constants
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.hypot
 
 class AlignToAprilTagTank(
     val drive: TankDriveSubsystem,
-    val camera: Camera,
-    val getPose: () -> Pose2d,
     val onRight: () -> Boolean
 ) : Command() {
 
     private val field = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField)
+    val camera: Camera? = drive.camera
+
+    private val shuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
 
     // TODO: Tune the PID
-    private val turnPID = PIDController(0.0, 0.0, 0.0)
-    private val drivePID = PIDController(0.0, 0.0, 0.0)
+    private val turnPID = PIDController(0.01, 0.0, 0.0)
+    private val drivePID = PIDController(0.01, 0.0, 0.0)
+
+    private val turnPIDEntry = shuffleboardTab.add("turnPID", turnPID)
+    private val drivePIDEntry = shuffleboardTab.add("drivePID", drivePID)
+
 
     private var fidID = -1
     private var apriltagLoc = Pose2d()
 
-    /* There are three phases the robot can be in when trying to align to april tag
-    TURN_TO_TARGET, DRIVE_TO_TARGET, DONE
+    /* There are two phases the robot can be in when trying to align to april tag
+        TURN_TO_TARGET, DRIVE_TO_TARGET
      */
     private var phase = Phase.TURN_TO_TARGET
 
-    private enum class Phase { TURN_TO_TARGET, DRIVE_TO_TARGET, DONE }
+    private enum class Phase { TURN_TO_TARGET, DRIVE_TO_TARGET }
+
 
     init {
         addRequirements(drive)
@@ -42,31 +50,36 @@ class AlignToAprilTagTank(
     }
 
     override fun initialize() {
+
         phase = Phase.TURN_TO_TARGET
         fidID = -1
 
-        if (!camera.frame.hasTargets()) {
-            phase = Phase.DONE
-            return
-        }
+        if (camera != null) {
+            if (!camera.frame.hasTargets()) {
+                end(false)
+            } else {
 
-        val bestTarget = camera.frame.bestTarget
-        fidID = bestTarget.fiducialId
-        apriltagLoc = field.getTagPose(fidID).get().toPose2d()
+                val bestTarget = camera.frame.bestTarget
+                fidID = bestTarget.fiducialId
+                apriltagLoc = field.getTagPose(fidID).get().toPose2d()
 
-        if (onRight()) {
-            apriltagLoc = Pose2d(
-                apriltagLoc.x + apriltagLoc.rotation.sin * -0.5,
-                apriltagLoc.y - apriltagLoc.rotation.cos * -0.5,
-                apriltagLoc.rotation
-            )
+                if (onRight()) {
+                    apriltagLoc = Pose2d(
+                        apriltagLoc.x + apriltagLoc.rotation.sin * -0.5,
+                        apriltagLoc.y - apriltagLoc.rotation.cos * -0.5,
+                        apriltagLoc.rotation
+                    )
+                }
+            }
+        } else {
+            println("Camera was null during AlignToAprilTagTank")
         }
     }
 
     override fun execute() {
         if (fidID == -1) return
 
-        val currentPose = getPose()
+        val currentPose = drive.getPose()
         val dx = apriltagLoc.x - currentPose.x
         val dy = apriltagLoc.y - currentPose.y
         val distance = hypot(dx, dy)
@@ -94,19 +107,16 @@ class AlignToAprilTagTank(
 
                 // Nice, however this sort of stuff could use a PID controller for better precision.
                 if (distance < 0.2) {
-                    phase = Phase.DONE
+                    end(false)
                 }
             }
 
-            Phase.DONE -> drive.stop()
         }
     }
 
-    override fun isFinished(): Boolean = phase == Phase.DONE
-
-    override fun end(interrupted: Boolean) {
-        drive.stop()
-    }
+//    override fun end(interrupted: Boolean) {
+//        drive.stop()
+//    }
 
     /* converts angles to between -180 and 180 */
     private fun normalizeAngle(angle: Double): Double {

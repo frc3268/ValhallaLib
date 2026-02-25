@@ -15,7 +15,6 @@ import frc.lib.gyro.GyroIO
 import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.rotation2dFromRad
-import frc.lib.swerve.SwerveDriveConstants
 import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.robot.Constants
 import org.littletonrobotics.junction.Logger
@@ -25,10 +24,10 @@ import kotlin.math.max
 class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : SubsystemBase() {
 
     private val shuffleboardTab = Shuffleboard.getTab(TankDriveConstants.TANK_DRIVE_TAB)
-    private var camera: Camera? = null
     private var poseEstimator: DifferentialDrivePoseEstimator
+    private var field: Field2d
 
-    var field: Field2d
+    var camera: Camera? = null
 
     private val gyroInputs = GyroIOInputsAutoLogged()
     private val gyro = when (Constants.mode) {
@@ -110,7 +109,7 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
         io.setVelocity(velocity, -velocity)
     }
 
-    fun arcadeDrive(x: Double, y: Double, gain: Double): Command = run {
+    fun arcadeDrive(x: Double, y: Double, gain: Double) {
         val maximum = Units.RPM.of(max(abs(y), abs(x)))
         val total = Units.RPM.of(x + y)
         val difference = Units.RPM.of(y - x)

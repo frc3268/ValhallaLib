@@ -32,13 +32,16 @@ class ShooterIOSparkMax : IShooterIO {
     }
 
 
-    override fun setIntakePercent(percentage: Double) {
+    override fun setStorageIntake(percentage: Double) {
         motorIsaac.set(-percentage)
         motorBarney.set(-percentage)
     }
 
-    override fun setShooterPercent(percentage: Double) {
+    override fun setShooter(percentage: Double) {
         motorIsaac.set(-percentage)
+    }
+
+    override fun setShooterIntake(percentage: Double) {
         motorBarney.set(percentage)
     }
 

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController
 import frc.lib.tankdrive.TankDriveSubsystem
 import frc.lib.tankdrive.TankJoystickDrive
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
+import frc.lib.tankdrive.v2.AlignToAprilTagTank
 import frc.robot.Constants.GENERAL_TAB
 import frc.robot.subsystems.shooter.ShooterIOSparkMax
 import frc.robot.subsystems.shooter.ShooterSubsystem
@@ -46,8 +47,8 @@ class RobotContainer {
 
     val teleopCommand = TankJoystickDrive(
         tankDrive,
-        { -driverController.getRawAxis(1) },
-        { driverController.getRawAxis(0) },
+        { driverController.getRawAxis(1) },
+        { -driverController.getRawAxis(0) },
     )
 
 
@@ -100,8 +101,10 @@ class RobotContainer {
         driverController.leftTrigger().onTrue(shooter.startIntake()) // Toggle on false?
         driverController.leftBumper().onTrue(shooter.stop()) // Toggle on false?
 
-        driverController.x().onTrue(shooter.shoot())
+        driverController.x().onTrue(shooter.revUpAndStartShoot())
 
+        Shuffleboard.getTab(Constants.GENERAL_TAB)
+            .add(AlignToAprilTagTank(tankDrive, { rightChooser.selected }))
 
         tankDrive.defaultCommand = teleopCommand
     }

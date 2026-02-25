@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab
 import edu.wpi.first.wpilibj2.command.Command
-import edu.wpi.first.wpilibj2.command.CommandScheduler
 import frc.robot.Constants
 import java.util.function.DoubleSupplier
 
@@ -20,7 +19,6 @@ class TankJoystickDrive(
         .withProperties(mapOf("min" to 0, "max" to 10)).entry
 
     init {
-        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drive)
     }
 
@@ -41,9 +39,10 @@ class TankJoystickDrive(
 
         /* Drive */
         // USE SCHEDULE INSTEAD
-        //drive.arcadeDrive(x, y, gain.getDouble(1.0)).schedule()
-        CommandScheduler.getInstance().schedule(drive.arcadeDrive(x, y, gain.getDouble(1.0)))
-
+        // no
+        
+        drive.arcadeDrive(x, y, gain.getDouble(1.0))
+        //CommandScheduler.getInstance().schedule(drive.arcadeDrive(x, y, gain.getDouble(1.0)))
     }
 
     // Called once the command ends or is interrupted.

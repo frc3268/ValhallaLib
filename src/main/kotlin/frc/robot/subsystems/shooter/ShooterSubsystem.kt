@@ -14,21 +14,21 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
 
     init {
         shuffleboardTab.add("Start Intake", startIntake()).withWidget(BuiltInWidgets.kCommand)
-        shuffleboardTab.add("Stop Intake", stop()).withWidget(BuiltInWidgets.kCommand)
-        shuffleboardTab.add("Shoot", shoot()).withWidget(BuiltInWidgets.kCommand)
+        shuffleboardTab.add("Shoot", revUpAndStartShoot()).withWidget(BuiltInWidgets.kCommand)
+        shuffleboardTab.add("Stop", stop()).withWidget(BuiltInWidgets.kCommand)
     }
 
     fun startIntake(): Command = run {
-        io.setIntakePercent(0.4)
+        io.setStorageIntake(0.4)
     }
 
-    fun shoot(): Command = SequentialCommandGroup(
+    fun revUpAndStartShoot(): Command = SequentialCommandGroup(
         runOnce {
-            io.setShooterPercent(1.0)
+            io.setShooter(1.0)
         },
-        WaitCommand(1.0),
+        WaitCommand(0.5),
         runOnce {
-            io.stop()
+            io.setShooterIntake(0.6)
         }
     )
 

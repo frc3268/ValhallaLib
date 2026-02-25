@@ -16,6 +16,12 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Calibration/drivePID": "PIDController",
+      "/Shuffleboard/Calibration/turnPID": "PIDController",
+      "/Shuffleboard/General/AlignToAprilTagTank": "Command",
+      "/Shuffleboard/General/Shoot": "Command",
+      "/Shuffleboard/General/Start Intake": "Command",
+      "/Shuffleboard/General/Stop": "Command",
       "/Shuffleboard/Tankdrive/Field": "Field2d",
       "/SmartDashboard/VisionSystemSim-hawkeye/Sim Field": "Field2d"
     },

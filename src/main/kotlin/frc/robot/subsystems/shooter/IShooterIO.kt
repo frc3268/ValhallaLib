@@ -1,7 +1,9 @@
 package frc.robot.subsystems.shooter
 
 interface IShooterIO {
-    fun setIntakePercent(percentage: Double)
-    fun setShooterPercent(percentage: Double)
+    fun setStorageIntake(percentage: Double)
+    fun setShooter(percentage: Double)
+    fun setShooterIntake(percentage: Double)
+
     fun stop()
 }
