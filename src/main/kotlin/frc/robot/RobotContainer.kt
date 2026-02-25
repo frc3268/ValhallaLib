@@ -98,7 +98,7 @@ class RobotContainer {
 //        driveSubsystem.defaultCommand = teleopCommand
 
         driverController.leftTrigger().onTrue(shooter.startIntake()) // Toggle on false?
-        driverController.leftBumper().onTrue(shooter.stopIntake()) // Toggle on false?
+        driverController.leftBumper().onTrue(shooter.stop()) // Toggle on false?
 
         driverController.x().onTrue(shooter.shoot())
 
