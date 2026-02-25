@@ -25,7 +25,6 @@ class RobotContainer {
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
 
 
-
     val autochooser = SendableChooser<Command>()
 
     val tankDrive = TankDriveSubsystem(
@@ -67,12 +66,10 @@ class RobotContainer {
         rightChooser.setDefaultOption("left", false)
         rightChooser.addOption("right", true)
 
-
         // get selected level with levelChooser.selected
         if (Constants.mode == Constants.States.REAL) {
 
         } else {
-            // coralIntakeSubsystem = CoralIntakeSubsystem(CoralIntakeIOSparkMaxSim())
 
             println("Warning: Simulated subsystems do not exist as no IOClass for them exists!")
             println("Abandon all hope ye who debug here")
@@ -99,6 +96,12 @@ class RobotContainer {
 //        driverController.povRight().onTrue(Routines.inchRight(driveSubsystem))
 //        driverController.povLeft().onTrue(Routines.inchLeft(driveSubsystem))
 //        driveSubsystem.defaultCommand = teleopCommand
+
+        driverController.leftTrigger().onTrue(shooter.startIntake()) // Toggle on false?
+        driverController.leftBumper().onTrue(shooter.stopIntake()) // Toggle on false?
+
+        driverController.x().onTrue(shooter.shoot())
+
 
         tankDrive.defaultCommand = teleopCommand
     }

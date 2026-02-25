@@ -1,11 +1,9 @@
 package frc.lib.tankdrive
 
 import edu.wpi.first.math.MathUtil
-import edu.wpi.first.util.sendable.Sendable
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import frc.robot.Constants
@@ -18,7 +16,8 @@ class TankJoystickDrive(
 ) : Command() {
 
     private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    private val gain = tab.addPersistent("TankDrive gain", 1.0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(mapOf("min" to 0, "max" to 10)).entry
+    private val gain = tab.addPersistent("TankDrive gain", 1.0).withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(mapOf("min" to 0, "max" to 10)).entry
 
     init {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -32,6 +31,9 @@ class TankJoystickDrive(
 
     // Called every time the scheduler runs while the command is scheduled.
     override fun execute() {
+
+        // Make sure it doesn't run
+        // return;
 
         /* Get Values, Deadband, Convert to arcade drive components */
         val x: Double = MathUtil.applyDeadband(rotation.asDouble, Constants.OperatorConstants.STICK_DEADBAND)
