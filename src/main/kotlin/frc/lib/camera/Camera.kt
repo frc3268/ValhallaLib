@@ -42,7 +42,7 @@ class Camera(name: String) {
         ),
         Rotation3d(
             0.0,
-            0.0,
+            -10.0,
             0.0
         )
     )

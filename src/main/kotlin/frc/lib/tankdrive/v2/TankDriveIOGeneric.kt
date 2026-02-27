@@ -26,7 +26,6 @@ class TankDriveIOGeneric(
     override fun setLeftVelocity(velocity: AngularVelocity) {
         left1.setVelocity(velocity)
         lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
-        println(velocity.toLongString())
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {

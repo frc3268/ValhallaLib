@@ -82,6 +82,7 @@ class TankDriveIOSparkMax : ITankDriveIO {
     }
 
     override fun getLeftDistance(): Double = left1.encoder.position
+
     override fun getRightDistance(): Double = right1.encoder.position
 
     override fun stop() {

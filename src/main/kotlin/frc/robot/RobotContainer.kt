@@ -47,8 +47,8 @@ class RobotContainer {
 
     val teleopCommand = TankJoystickDrive(
         tankDrive,
-        { driverController.getRawAxis(1) },
-        { -driverController.getRawAxis(0) },
+        { -driverController.getRawAxis(1) },
+        { -driverController.getRawAxis(4) },
     )
 
 
@@ -98,10 +98,10 @@ class RobotContainer {
 //        driverController.povLeft().onTrue(Routines.inchLeft(driveSubsystem))
 //        driveSubsystem.defaultCommand = teleopCommand
 
-        driverController.leftTrigger().onTrue(shooter.startIntake()) // Toggle on false?
-        driverController.leftBumper().onTrue(shooter.stop()) // Toggle on false?
+        driverController.leftTrigger().onTrue(shooter.startIntake()).onFalse(shooter.stop()) // Toggle on false?
+        driverController.b().onTrue(shooter.stop()) // Toggle on false?
 
-        driverController.x().onTrue(shooter.revUpAndStartShoot())
+        driverController.rightTrigger().onTrue(shooter.revUpAndStartShoot()).onFalse(shooter.stop())
 
         Shuffleboard.getTab(Constants.GENERAL_TAB)
             .add(AlignToAprilTagTank(tankDrive, { rightChooser.selected }))

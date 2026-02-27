@@ -15,8 +15,8 @@ class TankJoystickDrive(
 ) : Command() {
 
     private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    private val gain = tab.addPersistent("TankDrive gain", 1.0).withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(mapOf("min" to 0, "max" to 10)).entry
+    private val gain = tab.addPersistent("TankDrive gain", 0.4).withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(mapOf("min" to 0, "max" to 1)).entry
 
     init {
         addRequirements(drive)
@@ -40,7 +40,7 @@ class TankJoystickDrive(
         /* Drive */
         // USE SCHEDULE INSTEAD
         // no
-        
+
         drive.arcadeDrive(x, y, gain.getDouble(1.0))
         //CommandScheduler.getInstance().schedule(drive.arcadeDrive(x, y, gain.getDouble(1.0)))
     }

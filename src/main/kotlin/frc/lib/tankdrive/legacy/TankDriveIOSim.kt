@@ -21,6 +21,7 @@ class TankDriveIOSim : ITankDriveIO {
 
     // TODO: Get the device IDs
     private val left1: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
+
     // private val left2: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
     private val right1: SparkMax = SparkMax(5, SparkLowLevel.MotorType.kBrushed)
     // private val right2: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
@@ -60,7 +61,6 @@ class TankDriveIOSim : ITankDriveIO {
     override fun setLeftVelocity(velocity: AngularVelocity) {
         left1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
         lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
-        println(velocity.toLongString())
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {
@@ -88,27 +88,27 @@ class TankDriveIOSim : ITankDriveIO {
     }
 
     override fun simulationPeriodic() {
-/*        // In this method, we update our simulation of what our arm is doing
-        // First, we set our "inputs" (voltages)
-        m_armSim.setInput(m_motorSim.getAppliedOutput() * RoboRioSim.getVInVoltage());
+        /*        // In this method, we update our simulation of what our arm is doing
+                // First, we set our "inputs" (voltages)
+                m_armSim.setInput(m_motorSim.getAppliedOutput() * RoboRioSim.getVInVoltage());
 
-        // Next, we update it. The standard loop time is 20ms.
-        m_armSim.update(0.02);
+                // Next, we update it. The standard loop time is 20ms.
+                m_armSim.update(0.02);
 
-        // Now, we update the Spark Flex
-        flexSim.iterate(
-            Units.radiansPerSecondToRotationsPerMinute( // motor velocity, in RPM
-                m_armSim.getVelocityRadPerSec()),
-            RoboRioSim.getVInVoltage(), // Simulated battery voltage, in Volts
-            0.02); // Time interval, in Seconds
+                // Now, we update the Spark Flex
+                flexSim.iterate(
+                    Units.radiansPerSecondToRotationsPerMinute( // motor velocity, in RPM
+                        m_armSim.getVelocityRadPerSec()),
+                    RoboRioSim.getVInVoltage(), // Simulated battery voltage, in Volts
+                    0.02); // Time interval, in Seconds
 
-        // SimBattery estimates loaded battery voltages
-        // This should include all motors being simulated
-        RoboRioSim.setVInVoltage(
-            BatterySim.calculateDefaultBatteryLoadedVoltage(m_armSim.getCurrentDrawAmps()));
+                // SimBattery estimates loaded battery voltages
+                // This should include all motors being simulated
+                RoboRioSim.setVInVoltage(
+                    BatterySim.calculateDefaultBatteryLoadedVoltage(m_armSim.getCurrentDrawAmps()));
 
-        // Update any external GUI displays or values as desired
-        // For example, a Mechanism2d Arm based on the simulated arm angle
-        m_arm.setAngle(Units.radiansToDegrees(m_armSim.getAngleRads()));*/
+                // Update any external GUI displays or values as desired
+                // For example, a Mechanism2d Arm based on the simulated arm angle
+                m_arm.setAngle(Units.radiansToDegrees(m_armSim.getAngleRads()));*/
     }
 }
