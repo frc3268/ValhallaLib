@@ -68,13 +68,13 @@ class RobotContainer {
         rightChooser.addOption("right", true)
 
         // get selected level with levelChooser.selected
-        if (Constants.mode == Constants.States.REAL) {
-
-        } else {
-
-            println("Warning: Simulated subsystems do not exist as no IOClass for them exists!")
-            println("Abandon all hope ye who debug here")
-        }
+//        if (Constants.mode == Constants.States.REAL) {
+//
+//        } else {
+//
+//            println("Warning: Simulated subsystems do not exist as no IOClass for them exists!")
+//            println("Abandon all hope ye who debug here")
+//        }
 
         //val rbChooser = SendableChooser<Command>()
 
