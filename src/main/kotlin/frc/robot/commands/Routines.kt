@@ -28,7 +28,7 @@ object Routines {
     fun inchRight(drive: SwerveDriveBase) =
         SwerveJoystickDrive(drive, { 0.0 }, { 0.1 }, { 0.0 }, { false }).withTimeout(0.5)
 
-    fun leftAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
+    fun centerAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
         drive.driveForward(1.0.toRPM()),
         0.4.wait(),
         drive.stop(),
