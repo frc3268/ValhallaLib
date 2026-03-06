@@ -128,7 +128,11 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
         }
     }
 
-    fun stop() {
+    fun commandArcadeDrive(x: Double, y: Double, gain: Double): Command = runOnce {
+        arcadeDrive(x, y, gain)
+    }
+
+    fun stop(): Command = runOnce {
         io.stop()
     }
 

@@ -1,6 +1,7 @@
 package frc.robot
 
 import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
@@ -11,6 +12,7 @@ import frc.lib.tankdrive.TankJoystickDrive
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
 import frc.lib.tankdrive.v2.AlignToAprilTagTank
 import frc.robot.Constants.GENERAL_TAB
+import frc.robot.commands.Routines
 import frc.robot.subsystems.shooter.ShooterIOSparkMax
 import frc.robot.subsystems.shooter.ShooterSubsystem
 
@@ -26,7 +28,7 @@ class RobotContainer {
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
 
 
-    val autochooser = SendableChooser<Command>()
+    val autoChooser = SendableChooser<Command>()
 
     val tankDrive = TankDriveSubsystem(
         TankDriveIOSparkMax(),
@@ -76,18 +78,13 @@ class RobotContainer {
             println("Abandon all hope ye who debug here")
         }
 
-        //val rbChooser = SendableChooser<Command>()
 
-//        driverController.leftTrigger().onTrue(tankDriveSubsystem.driveForward(0.7));
-//        driverController.rightTrigger().onTrue(tankDriveSubsystem.driveForward(0.0));
+        autoChooser.addOption("Do Nothing", WaitCommand(3.0))
+        autoChooser.setDefaultOption(
+            "Left Auto",
+            Routines.leftAuto(tankDrive, shooter)
+        )
 
-//        rbChooser.setDefaultOption(
-//            "Align to April Tag",
-//            AlignToAprilTagCommand(driveSubsystem, { rightChooser.selected })
-//        )
-//        rbChooser.addOption("Align to Source Left", goto(FieldPositions.sourceLeft))
-//        rbChooser.addOption("Align to Source Right", goto(FieldPositions.sourceRight))
-//
 //        if (Constants.mode == Constants.States.SIM) {
 //            Shuffleboard.getTab(Constants.TROUBLESHOOTING_TAB)
 //                .add(AlignToAprilTagCommand(driveSubsystem, { rightChooser.selected }))
@@ -107,6 +104,12 @@ class RobotContainer {
             .add(AlignToAprilTagTank(tankDrive, { rightChooser.selected }))
 
         tankDrive.defaultCommand = teleopCommand
+
+        GeneralTab
+            .add("Autonomous Mode", autoChooser)
+            .withWidget(BuiltInWidgets.kComboBoxChooser)
+            .withPosition(0, 0)
+            .withSize(2, 1)
     }
 
     /**
@@ -116,8 +119,8 @@ class RobotContainer {
      */
     val autonomousCommand: Command
         get() {
-            return WaitCommand(1.0)
+            // return WaitCommand(1.0)
             //fix
-            //autochooser.selected
+            return autoChooser.selected
         }
 }
