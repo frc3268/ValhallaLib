@@ -17,10 +17,10 @@ import frc.robot.subsystems.shooter.ShooterIOSparkMax
 import frc.robot.subsystems.shooter.ShooterSubsystem
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * This class is where the bulk of the robot should be declared. Since [Command]-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the [Robot]
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
+ * subsystems, [Command]s, and trigger mappings) should be declared here.
  */
 class RobotContainer {
     private val GeneralTab = Shuffleboard.getTab(GENERAL_TAB)
@@ -62,7 +62,7 @@ class RobotContainer {
 //    }
 
 
-    /** The container for the robot. Contains subsystems, OI devices, and commands.  */
+    /** The container for the robot. Contains subsystems, OI devices, and [Command]s.  */
     init {
         val rightChooser = SendableChooser<Boolean>()
 

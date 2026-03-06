@@ -8,11 +8,11 @@ import frc.lib.tankdrive.TankDriveSubsystem
 import frc.lib.wait
 import frc.robot.subsystems.shooter.ShooterSubsystem
 
-/** Setup shuffleboard buttons
- *
- * TODO: Put controller stuff in here */
+///** Setup [edu.wpi.first.wpilibj.shuffleboard.Shuffleboard] buttons
+// *
+// * TODO: Put controller stuff in here */
 
-/** High level routines / commands consisting of lower level commands */
+/** High level routines / [Command]s consisting of lower level [Command]s */
 object Routines {
 
     fun inchForward(drive: SwerveDriveBase) =

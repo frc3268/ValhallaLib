@@ -7,6 +7,8 @@ import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.units.measure.Voltage
 import frc.robot.Constants
 
+// This will likely be deprecated btw.
+
 /** ***Easy Cross Motor API Interface.***
  *
  * **Inverse & ID** should be configured automatically in init based off of arguments.
