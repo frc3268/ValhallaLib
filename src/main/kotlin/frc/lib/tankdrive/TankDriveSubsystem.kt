@@ -3,7 +3,6 @@ package frc.lib.tankdrive
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
-import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
@@ -16,6 +15,7 @@ import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.rotation2dFromRad
 import frc.lib.tankdrive.v2.TankDriveConstants
+import frc.lib.toRPM
 import frc.robot.Constants
 import org.littletonrobotics.junction.Logger
 import kotlin.math.abs
@@ -110,9 +110,9 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
     }
 
     fun arcadeDrive(x: Double, y: Double, gain: Double) {
-        val maximum = Units.RPM.of(max(abs(y), abs(x)))
-        val total = Units.RPM.of(x + y)
-        val difference = Units.RPM.of(y - x)
+        val maximum = (max(abs(y), abs(x))).toRPM()
+        val total = (x + y).toRPM()
+        val difference = (y - x).toRPM()
         if (y >= 0) {
             if (x >= 0) {
                 io.setVelocity(maximum * gain, difference * gain)
