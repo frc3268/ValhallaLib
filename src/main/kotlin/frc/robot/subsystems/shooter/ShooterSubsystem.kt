@@ -19,7 +19,7 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
     }
 
     fun startIntake(): Command = run {
-        io.setStorageIntake(0.4)
+        io.setStorageIntake(0.7)
     }
 
     fun revUpAndStartShoot(): Command = SequentialCommandGroup(
@@ -28,7 +28,7 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
         },
         WaitCommand(0.5),
         runOnce {
-            io.setShooterIntake(0.6)
+            io.setShooterIntake(0.8)
         }
     )
 
