@@ -27,9 +27,10 @@ object Routines {
     fun inchRight(drive: SwerveDriveBase) =
         SwerveJoystickDrive(drive, { 0.0 }, { 0.1 }, { 0.0 }, { false }).withTimeout(0.5)
 
-    fun centerAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
-        drive.commandArcadeDrive(0.0, -1.0, 0.5),
-        1.0.wait(),
+    // Max: 20 seconds
+    fun basicBackAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
+        drive.commandArcadeDrive(0.0, 1.0, 0.2),
+        0.5.wait(),
         drive.stop(),
         shoot.revUpAndStartShoot(),
         10.0.wait(),

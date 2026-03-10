@@ -82,7 +82,7 @@ class RobotContainer {
         autoChooser.addOption("Do Nothing", WaitCommand(3.0))
         autoChooser.setDefaultOption(
             "Center Auto",
-            Routines.centerAuto(tankDrive, shooter)
+            Routines.basicBackAuto(tankDrive, shooter)
         )
 
 //        if (Constants.mode == Constants.States.SIM) {
