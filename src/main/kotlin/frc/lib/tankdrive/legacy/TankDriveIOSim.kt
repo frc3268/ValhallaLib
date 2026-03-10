@@ -8,6 +8,7 @@ import com.revrobotics.spark.config.SparkMaxConfig
 import edu.wpi.first.math.system.plant.DCMotor
 import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import frc.lib.tankdrive.ITankDriveIO
 import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
@@ -16,8 +17,8 @@ import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
 class TankDriveIOSim : ITankDriveIO {
     private val shuffleboardTab = Shuffleboard.getTab(TANK_DRIVE_TAB)
 
-    private var lastLeftVelocity = shuffleboardTab.add("Left Velocity", 0.0).entry
-    private var lastRightVelocity = shuffleboardTab.add("Right Velocity", 0.0).entry
+    private var lastLeftVelocity = shuffleboardTab.add("Left Velocity", 0.0).withWidget(BuiltInWidgets.kGraph).entry
+    private var lastRightVelocity = shuffleboardTab.add("Right Velocity", 0.0).withWidget(BuiltInWidgets.kGraph).entry
 
     // TODO: Get the device IDs
     private val left1: SparkMax = SparkMax(3, SparkLowLevel.MotorType.kBrushed)
