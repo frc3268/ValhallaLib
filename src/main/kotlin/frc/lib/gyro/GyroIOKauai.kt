@@ -1,13 +1,12 @@
 package frc.lib.gyro
 
-import com.kauailabs.navx.frc.AHRS
-import edu.wpi.first.wpilibj.SPI
+import com.studica.frc.AHRS
 import frc.lib.rotation2dFromDeg
 import kotlin.math.IEEErem
 
 
 class GyroIOKauai : GyroIO {
-    private val gyro = AHRS(SPI.Port.kMXP)
+    private val gyro = AHRS(AHRS.NavXComType.kMXP_SPI)
 
 
     override fun updateInputs(inputs: GyroIO.GyroIOInputs) {
