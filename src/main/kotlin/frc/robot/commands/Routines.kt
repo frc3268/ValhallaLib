@@ -29,7 +29,7 @@ object Routines {
 
     // Max: 20 seconds
     fun basicBackAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
-        drive.commandArcadeDrive(0.0, 1.0, 0.2),
+        drive.commandArcadeDrive(0.0, -1.0, 0.2),
         0.5.wait(),
         drive.stop(),
         shoot.revUpAndStartShoot(),
