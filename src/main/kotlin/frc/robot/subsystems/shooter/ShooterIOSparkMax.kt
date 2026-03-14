@@ -1,6 +1,7 @@
 package frc.robot.subsystems.shooter
 
-import com.revrobotics.spark.SparkBase
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
 import com.revrobotics.spark.config.SparkMaxConfig
@@ -20,15 +21,16 @@ class ShooterIOSparkMax : IShooterIO {
 
         motorBarney.configure(
             configBarney,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
         motorIsaac.configure(
             configIsaac,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
+
     }
 
 

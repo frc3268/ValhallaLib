@@ -1,5 +1,7 @@
 package frc.lib.motor.sparkmax
 
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkClosedLoopController
 import com.revrobotics.spark.SparkLowLevel
@@ -20,7 +22,7 @@ class SparkMaxMotor(
     val pidController: PIDController = PIDController(0.0, 0.0, 0.0)
 ) : IMotor {
 
-    override var invert: Boolean = false;
+    override var invert: Boolean = false
 
 
     var sparkMax: SparkMax = SparkMax(id, motorType)
@@ -28,11 +30,11 @@ class SparkMaxMotor(
     var config: SparkMaxConfig = SparkMaxConfig()
 
     init {
-        config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d);
+        config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d)
     }
 
     override fun setPercent(percent: Double) {
-        sparkMax.set(percent);
+        sparkMax.set(percent)
     }
 
     override fun setVoltage(
@@ -43,11 +45,11 @@ class SparkMaxMotor(
     }
 
     override fun setPosition(position: Double) {
-        controller.setReference(position, SparkBase.ControlType.kPosition)
+        controller.setSetpoint(position, SparkBase.ControlType.kPosition)
     }
 
     override fun setVelocity(velocity: AngularVelocity) {
-        controller.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        controller.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
     }
 
     override fun getVelocityRPMMeasurement(): Double {
@@ -65,7 +67,7 @@ class SparkMaxMotor(
     }
 
     override fun configure() {
-        sparkMax.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
+        sparkMax.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters)
     }
 
     override fun stop() {
@@ -86,7 +88,7 @@ class SparkMaxMotor(
 
     override fun follow(motor: IMotor): Boolean {
         if (motor is SparkMaxMotor) {
-            return true;
+            return true
         } else {
             assert(false)
             return false

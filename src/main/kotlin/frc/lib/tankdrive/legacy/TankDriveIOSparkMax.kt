@@ -1,5 +1,7 @@
 package frc.lib.tankdrive.legacy
 
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
@@ -30,46 +32,46 @@ class TankDriveIOSparkMax : ITankDriveIO {
     init {
         configLeft2.follow(left1)
         configRight2.follow(right1)
-        configRight1.inverted(true);
+        configRight1.inverted(true)
 
         // Pid, Needs tuning
-        configLeft1.closedLoop.p(1.0).i(0.0).d(0.0);
-        configRight1.closedLoop.p(1.0).i(0.0).d(0.0);
+        configLeft1.closedLoop.p(1.0).i(0.0).d(0.0)
+        configRight1.closedLoop.p(1.0).i(0.0).d(0.0)
 
 
         left1.configure(
             configLeft1,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
         left2.configure(
             configLeft2,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
         right1.configure(
             configRight1,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
         right2.configure(
             configRight2,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
     }
 
     override fun setLeftVelocity(velocity: AngularVelocity) {
-        left1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
-        lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
+        left1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        lastLeftVelocity.setDouble(velocity.`in`(Units.RPM))
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {
-        right1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
-        lastRightVelocity.setDouble(velocity.`in`(Units.RPM));
+        right1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        lastRightVelocity.setDouble(velocity.`in`(Units.RPM))
     }
 
     override fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity) {
@@ -88,7 +90,7 @@ class TankDriveIOSparkMax : ITankDriveIO {
     override fun stop() {
         left1.stopMotor()
         right1.stopMotor()
-        lastLeftVelocity.setDouble(0.0);
-        lastLeftVelocity.setDouble(0.0);
+        lastLeftVelocity.setDouble(0.0)
+        lastLeftVelocity.setDouble(0.0)
     }
 }
