@@ -46,6 +46,10 @@ object Constants {
 
     const val CAMERA_NAME = "hawkeye"
 
+    // Allow revlib to automatically log data to the robot.
+    // This may be disabled in favour of other telemetry methods
+    const val ENABLE_REV_AUTOLOG = false;
+
     enum class States { REAL, SIM, REPLAY }
 
     /** Current state of the robot. Should be automatically set. */

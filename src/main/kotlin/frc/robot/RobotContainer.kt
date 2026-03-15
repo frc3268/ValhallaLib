@@ -23,12 +23,14 @@ import frc.robot.subsystems.shooter.ShooterSubsystem
  * subsystems, [Command]s, and trigger mappings) should be declared here.
  */
 class RobotContainer {
-    private val GeneralTab = Shuffleboard.getTab(GENERAL_TAB)
-    private val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
+    private val generalTab = Shuffleboard.getTab(GENERAL_TAB)
+    private val calibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
     private val driverController = CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT)
 
+    private val timerTelemetry = TimerTelemetry()
 
     val autoChooser = SendableChooser<Command>()
+    private val autoWait = calibrationTab.addPersistent("Auto wait", 1.0).entry
 
     val tankDrive = TankDriveSubsystem(
         TankDriveIOSparkMax(),
@@ -81,8 +83,8 @@ class RobotContainer {
 
         autoChooser.addOption("Do Nothing", WaitCommand(3.0))
         autoChooser.setDefaultOption(
-            "Center Auto",
-            Routines.basicBackAuto(tankDrive, shooter)
+            "Move-Back Auto",
+            Routines.basicBackAuto(tankDrive, shooter, autoWait.getDouble(1.0))
         )
 
 //        if (Constants.mode == Constants.States.SIM) {
@@ -105,7 +107,7 @@ class RobotContainer {
 
         tankDrive.defaultCommand = teleopCommand
 
-        GeneralTab
+        generalTab
             .add("Autonomous Mode", autoChooser)
             .withWidget(BuiltInWidgets.kComboBoxChooser)
             .withPosition(0, 0)

@@ -1,5 +1,7 @@
 package frc.lib.motor.sparkmax
 
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkClosedLoopController
 import com.revrobotics.spark.SparkLowLevel
@@ -43,11 +45,11 @@ class SparkMaxMotor(
     }
 
     override fun setPosition(position: Double) {
-        controller.setReference(position, SparkBase.ControlType.kPosition)
+        controller.setSetpoint(position, SparkBase.ControlType.kPosition)
     }
 
     override fun setVelocity(velocity: AngularVelocity) {
-        controller.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        controller.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
     }
 
     override fun getVelocityRPMMeasurement(): Double {
@@ -65,7 +67,7 @@ class SparkMaxMotor(
     }
 
     override fun configure() {
-        sparkMax.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
+        sparkMax.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters)
     }
 
     override fun stop() {

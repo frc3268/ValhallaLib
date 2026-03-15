@@ -1,9 +1,11 @@
 package frc.robot
 
+import com.revrobotics.util.StatusLogger.disableAutoLogging
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
+import frc.robot.Constants.ENABLE_REV_AUTOLOG
 import org.littletonrobotics.junction.LogFileUtil
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
@@ -25,6 +27,12 @@ class Robot : TimedRobot() {
      * initialization code.
      */
     override fun robotInit() {
+        // Disable logging in favour of advantage kit instead
+
+        if (!ENABLE_REV_AUTOLOG) {
+            disableAutoLogging()
+        }
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         if (isReal()) {

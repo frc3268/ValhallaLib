@@ -25,8 +25,8 @@ object robotCore {
     lateinit var driverController: CommandXboxController
     val autoChooser = SendableChooser<Command>()
 
-    val GeneralTab = Shuffleboard.getTab(GENERAL_TAB)
-    val CalibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
+    val generalTab = Shuffleboard.getTab(GENERAL_TAB)
+    val calibrationTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
 
 
     fun goto(goal: FieldLocation): Command {
@@ -74,7 +74,7 @@ object robotCore {
 
     // Idk if this should be called in initCore or not
     fun initWidgets() {
-        GeneralTab
+        generalTab
             .add("Autonomous Mode", autoChooser)
             .withWidget(BuiltInWidgets.kComboBoxChooser)
             .withPosition(0, 0)

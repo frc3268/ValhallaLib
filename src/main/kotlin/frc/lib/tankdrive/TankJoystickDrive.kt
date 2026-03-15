@@ -15,7 +15,7 @@ class TankJoystickDrive(
 ) : Command() {
 
     private val tab: ShuffleboardTab = Shuffleboard.getTab(Constants.CALIBRATION_TAB)
-    private val gain = tab.addPersistent("TankDrive gain", 0.4).withWidget(BuiltInWidgets.kNumberSlider)
+    private val gain = tab.addPersistent("TankDrive gain", 0.7).withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(mapOf("min" to 0, "max" to 1)).entry
 
     init {

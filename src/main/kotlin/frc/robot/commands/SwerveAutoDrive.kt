@@ -55,7 +55,7 @@ class SwerveAutoDrive(
             else
                 goal.get().blue.toPose2d()
         index = 0
-        points = pathfind(drive.getPose(), to)
+        points = pathFind(drive.getPose(), to)
         drive.field.getObject("points").setPoses(points)
         next = points[index]
     }
@@ -82,7 +82,7 @@ class SwerveAutoDrive(
                     -SwerveDriveConstants.DriveTrainConstants.xPIDController.calculate(
                         drive.getPose().x, next.x
                     )
-                            * MAX_SPEED_METERS_PER_SECOND,
+                        * MAX_SPEED_METERS_PER_SECOND,
                     -SwerveDriveConstants.DriveTrainConstants.yPIDController.calculate(
                         drive.getPose().y, next.y
                     ) * MAX_SPEED_METERS_PER_SECOND,
@@ -109,10 +109,10 @@ class SwerveAutoDrive(
     override fun isFinished(): Boolean {
         if (
             (abs(drive.getPose().x - next.x) < 0.5 &&
-                    abs(drive.getPose().y - next.y) < 0.5) && index < points.size - 1 ||
+                abs(drive.getPose().y - next.y) < 0.5) && index < points.size - 1 ||
             (abs(drive.getPose().x - next.x) < tolerance.x &&
-                    abs(drive.getPose().y - next.y) < tolerance.y &&
-                    (abs(drive.getPose().rotation.minus(next.rotation).degrees) < tolerance.rotation.degrees)) && index >= points.size - 1
+                abs(drive.getPose().y - next.y) < tolerance.y &&
+                (abs(drive.getPose().rotation.minus(next.rotation).degrees) < tolerance.rotation.degrees)) && index >= points.size - 1
         ) {
             if (index >= points.size - 1) {
                 return true
@@ -123,10 +123,9 @@ class SwerveAutoDrive(
         return false
     }
 
-    override fun end(interrupted: Boolean) {
-    }
+    override fun end(interrupted: Boolean) {}
 
-    private fun pathfind(from: Pose2d, to: Pose2d): MutableList<Pose2d> {
+    private fun pathFind(from: Pose2d, to: Pose2d): MutableList<Pose2d> {
         val path =
             smoothPath(
                 construct_path(

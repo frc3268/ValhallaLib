@@ -1,5 +1,7 @@
 package frc.lib.tankdrive.legacy
 
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
@@ -39,36 +41,36 @@ class TankDriveIOSparkMax : ITankDriveIO {
 
         left1.configure(
             configLeft1,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
         left2.configure(
             configLeft2,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
         right1.configure(
             configRight1,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
         right2.configure(
             configRight2,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         )
 
     }
 
     override fun setLeftVelocity(velocity: AngularVelocity) {
-        left1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        left1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
         lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {
-        right1.closedLoopController.setReference(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
+        right1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
         lastRightVelocity.setDouble(velocity.`in`(Units.RPM));
     }
 

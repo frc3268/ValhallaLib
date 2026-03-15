@@ -28,9 +28,9 @@ object Routines {
         SwerveJoystickDrive(drive, { 0.0 }, { 0.1 }, { 0.0 }, { false }).withTimeout(0.5)
 
     // Max: 20 seconds
-    fun basicBackAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem): Command = SequentialCommandGroup(
-        drive.commandArcadeDrive(0.0, -1.0, 0.2),
-        0.5.wait(),
+    fun basicBackAuto(drive: TankDriveSubsystem, shoot: ShooterSubsystem, driveWait: Double): Command = SequentialCommandGroup(
+        drive.commandArcadeDrive(0.0, 1.0, 0.35),
+        driveWait.wait(),
         drive.stop(),
         shoot.revUpAndStartShoot(),
         10.0.wait(),
