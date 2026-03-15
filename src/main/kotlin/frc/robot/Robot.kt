@@ -85,7 +85,7 @@ class Robot : TimedRobot() {
         autonomousCommand = robotContainer?.autonomousCommand
         // Schedule the autonomous command (example)
         // Note the Kotlin safe-call(?.), this ensures autonomousCommand is not null before scheduling it
-        autonomousCommand?.schedule()
+        CommandScheduler.getInstance().schedule(autonomousCommand)
     }
 
     /** This function is called periodically during autonomous.  */

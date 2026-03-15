@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
 
+
+// Check out https://docs.wpilib.org/en/stable/docs/yearly-overview/2026-game-data.html
+// It has data on when you can shoot
 class TimerTelemetry : SubsystemBase() {
 
     private val timerTab = Shuffleboard.getTab(Constants.GENERAL_TAB)

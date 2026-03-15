@@ -22,7 +22,7 @@ class SparkMaxMotor(
     val pidController: PIDController = PIDController(0.0, 0.0, 0.0)
 ) : IMotor {
 
-    override var invert: Boolean = false;
+    override var invert: Boolean = false
 
 
     var sparkMax: SparkMax = SparkMax(id, motorType)
@@ -30,11 +30,11 @@ class SparkMaxMotor(
     var config: SparkMaxConfig = SparkMaxConfig()
 
     init {
-        config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d);
+        config.closedLoop.p(pidController.p).i(pidController.i).d(pidController.d)
     }
 
     override fun setPercent(percent: Double) {
-        sparkMax.set(percent);
+        sparkMax.set(percent)
     }
 
     override fun setVoltage(
@@ -88,7 +88,7 @@ class SparkMaxMotor(
 
     override fun follow(motor: IMotor): Boolean {
         if (motor is SparkMaxMotor) {
-            return true;
+            return true
         } else {
             assert(false)
             return false

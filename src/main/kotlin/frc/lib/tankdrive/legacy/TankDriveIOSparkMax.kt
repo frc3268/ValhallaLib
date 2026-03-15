@@ -32,11 +32,11 @@ class TankDriveIOSparkMax : ITankDriveIO {
     init {
         configLeft2.follow(left1)
         configRight2.follow(right1)
-        configRight1.inverted(true);
+        configRight1.inverted(true)
 
         // Pid, Needs tuning
-        configLeft1.closedLoop.p(1.0).i(0.0).d(0.0);
-        configRight1.closedLoop.p(1.0).i(0.0).d(0.0);
+        configLeft1.closedLoop.p(1.0).i(0.0).d(0.0)
+        configRight1.closedLoop.p(1.0).i(0.0).d(0.0)
 
 
         left1.configure(
@@ -66,12 +66,12 @@ class TankDriveIOSparkMax : ITankDriveIO {
 
     override fun setLeftVelocity(velocity: AngularVelocity) {
         left1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
-        lastLeftVelocity.setDouble(velocity.`in`(Units.RPM));
+        lastLeftVelocity.setDouble(velocity.`in`(Units.RPM))
     }
 
     override fun setRightVelocity(velocity: AngularVelocity) {
         right1.closedLoopController.setSetpoint(velocity.`in`(Units.RPM), SparkBase.ControlType.kVelocity)
-        lastRightVelocity.setDouble(velocity.`in`(Units.RPM));
+        lastRightVelocity.setDouble(velocity.`in`(Units.RPM))
     }
 
     override fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity) {
@@ -90,7 +90,7 @@ class TankDriveIOSparkMax : ITankDriveIO {
     override fun stop() {
         left1.stopMotor()
         right1.stopMotor()
-        lastLeftVelocity.setDouble(0.0);
-        lastLeftVelocity.setDouble(0.0);
+        lastLeftVelocity.setDouble(0.0)
+        lastLeftVelocity.setDouble(0.0)
     }
 }
