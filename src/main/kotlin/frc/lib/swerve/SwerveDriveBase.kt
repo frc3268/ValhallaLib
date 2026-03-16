@@ -27,7 +27,6 @@ import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.kinematics
 import frc.lib.swerve.SwerveDriveConstants.DriveTrainConstants.thetaPIDController
 import frc.robot.Constants
 import frc.robot.Constants.CAMERA_NAME
-import org.littletonrobotics.junction.Logger
 import org.photonvision.EstimatedRobotPose
 import java.util.*
 
@@ -52,9 +51,6 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
                 SwerveDriveConstants.modules.mapIndexed { _, swerveMod ->
                     SwerveModule(object : SwerveModuleIO {
                         override val turnPIDController: PIDController = swerveMod.pidController
-                        override fun updateInputs(inputs: SwerveModuleIO.ModuleIOInputs) {
-                            //no
-                        }
 
                         override fun setDriveVoltage(volts: Double) {
                             //no
@@ -70,6 +66,10 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
 
                         override fun setTurnBrakeMode(enable: Boolean) {
                             //no
+                        }
+
+                        override fun updateInputs(inputs: SwerveModuleIO.ModuleIOInputs) {
+
                         }
 
                         override fun reset() {
@@ -164,6 +164,7 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
             gyroInputs.yawPosition = (gyroInputs.yawPosition.plus(twist.dtheta.rotation2dFromRad()))
         }
 
+
         camera!!.captureFrame()
 
         // Estimate robot pose based on what the encoders say
@@ -201,7 +202,6 @@ class SwerveDriveBase(startingPose: Pose2d) : SubsystemBase() {
         field.robotPose = getPose()
         poseXEntry.setDouble(getPose().x)
         poseYEntry.setDouble(getPose().y)
-        Logger.recordOutput("Robot/Pose", getPose())
     }
 
     // Go to http://localhost:1181/ to see preprocessed stream, http://localhost:1182/ to see processed stream.

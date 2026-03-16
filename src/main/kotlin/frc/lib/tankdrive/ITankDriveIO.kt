@@ -7,7 +7,7 @@ interface ITankDriveIO {
     fun setRightVelocity(velocity: AngularVelocity)
     fun setVelocity(leftVel: AngularVelocity, rightVel: AngularVelocity)
     fun setVelocityBoth(velocity: AngularVelocity)
-    fun getLeftDistance(): Double
+    fun  getLeftDistance(): Double
     fun getRightDistance(): Double
     fun stop()
 

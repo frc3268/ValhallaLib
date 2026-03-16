@@ -2,7 +2,6 @@ package frc.robot
 
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
-import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
@@ -38,12 +37,11 @@ class TimerTelemetry : SubsystemBase() {
         // We're teleop enabled, compute.
         val matchTime = DriverStation.getMatchTime()
         val gameData = DriverStation.getGameSpecificMessage()
-        // If we have no game data, we cannot compute, assume hub is active, as its likely early in teleop.
+        // If we have no game data, we cannot compute, assume hub is active, as It's likely early in teleop.
         if (gameData.isEmpty()) {
             return true
         }
-        var redInactiveFirst = false
-        redInactiveFirst = when (gameData[0]) {
+        val redInactiveFirst: Boolean = when (gameData[0]) {
             'R' -> true
             'B' -> false
             else -> {

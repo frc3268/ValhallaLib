@@ -1,5 +1,6 @@
 package frc.lib.swerve
 
+import com.ctre.phoenix6.CANBus
 import com.ctre.phoenix6.configs.TalonFXConfiguration
 import com.ctre.phoenix6.hardware.TalonFX
 import com.ctre.phoenix6.signals.InvertedValue
@@ -14,8 +15,9 @@ import kotlin.math.IEEErem
 
 class SwerveModuleIOKraken(val moduleConstants: SwerveDriveConstants.ModuleConstants) : SwerveModuleIO {
 
-    private val driveMotor = TalonFX(moduleConstants.driveMotorId, "rio")
-    private val angleMotor = TalonFX(moduleConstants.angleMotorId, "rio")
+    private val bus: CANBus = CANBus.roboRIO()
+    private val driveMotor = TalonFX(moduleConstants.driveMotorId, bus)
+    private val angleMotor = TalonFX(moduleConstants.angleMotorId, bus)
 
     override val turnPIDController: PIDController = moduleConstants.pidController
 

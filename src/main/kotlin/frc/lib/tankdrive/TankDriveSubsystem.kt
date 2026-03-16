@@ -17,7 +17,6 @@ import frc.lib.rotation2dFromRad
 import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.lib.toRPM
 import frc.robot.Constants
-import org.littletonrobotics.junction.Logger
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -94,7 +93,7 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
         field.robotPose = getPose()
         poseXEntry.setDouble(getPose().x)
         poseYEntry.setDouble(getPose().y)
-        Logger.recordOutput("Robot/Pose", getPose())
+//        Logger.recordOutput("Robot/Pose", getPose())
     }
 
     fun driveForward(velocity: AngularVelocity): Command = run {

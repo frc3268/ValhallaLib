@@ -11,8 +11,6 @@ import frc.robot.Constants
 
 class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
 
-    val inputs = IShooterIO.LoggedInputs()
-
     private val shuffleboardTab = Shuffleboard.getTab(Constants.GENERAL_TAB)
     private val troubleshootingTab = Shuffleboard.getTab(Constants.TROUBLESHOOTING_TAB)
 
@@ -31,7 +29,7 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
     }
 
     fun startIntake(): Command = run {
-        io.setStorageIntake(0.7)
+        io.setIntake(0.7)
     }
 
     fun revUpAndStartShoot(): Command = SequentialCommandGroup(
@@ -40,7 +38,7 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
         },
         WaitCommand(0.5),
         runOnce {
-            io.setShooterIntake(0.8)
+            io.setIntakeForShooter(0.8)
         }
     )
 
@@ -52,10 +50,6 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
         io.setShooter(debugShooterSpeed.getDouble(0.0))
     }
     private fun directIntake(): Command = runOnce {
-        io.setShooterIntake(debugIntakeSpeed.getDouble(0.0))
-    }
-
-    override fun periodic() {
-        io.updateInputs(inputs)
+        io.setIntakeForShooter(debugIntakeSpeed.getDouble(0.0))
     }
 }
