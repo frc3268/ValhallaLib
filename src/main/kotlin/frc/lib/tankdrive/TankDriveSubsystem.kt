@@ -14,7 +14,6 @@ import frc.lib.gyro.GyroIO
 import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
 import frc.lib.rotation2dFromRad
-import frc.lib.tankdrive.v2.TankDriveConstants
 import frc.lib.toRPM
 import frc.robot.Constants
 import kotlin.math.abs

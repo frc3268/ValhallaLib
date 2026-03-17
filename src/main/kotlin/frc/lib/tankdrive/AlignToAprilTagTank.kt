@@ -1,4 +1,4 @@
-package frc.lib.tankdrive.v2
+package frc.lib.tankdrive
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout
 import edu.wpi.first.apriltag.AprilTagFields
@@ -8,7 +8,6 @@ import edu.wpi.first.units.Units
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import frc.lib.camera.Camera
-import frc.lib.tankdrive.TankDriveSubsystem
 import frc.robot.Constants
 import kotlin.math.abs
 import kotlin.math.atan2

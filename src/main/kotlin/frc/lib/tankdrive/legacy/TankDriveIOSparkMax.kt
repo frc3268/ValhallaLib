@@ -10,7 +10,7 @@ import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import frc.lib.tankdrive.ITankDriveIO
-import frc.lib.tankdrive.v2.TankDriveConstants.TANK_DRIVE_TAB
+import frc.lib.tankdrive.TankDriveConstants.TANK_DRIVE_TAB
 
 
 class TankDriveIOSparkMax : ITankDriveIO {

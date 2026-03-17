@@ -8,7 +8,6 @@ import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
 import com.revrobotics.spark.config.SparkMaxConfig
 
-
 class ShooterIOSparkMax : IShooterIO {
     // Those who know...
     private val motorBarney: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)

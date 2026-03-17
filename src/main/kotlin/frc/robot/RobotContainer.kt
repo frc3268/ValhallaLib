@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController
 import frc.lib.tankdrive.TankDriveSubsystem
 import frc.lib.tankdrive.TankJoystickDrive
 import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
-import frc.lib.tankdrive.v2.AlignToAprilTagTank
+import frc.lib.tankdrive.AlignToAprilTagTank
 import frc.robot.Constants.GENERAL_TAB
 import frc.robot.commands.Routines
 import frc.robot.subsystems.shooter.ShooterIOSparkMax
 import frc.robot.subsystems.shooter.ShooterSubsystem
+import dev.doglog.DogLog;
+import dev.doglog.DogLogOptions;
 
 /**
  * This class is where the bulk of the robot should be declared. Since [Command]-based is a
@@ -66,6 +68,9 @@ class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and [Command]s.  */
     init {
+
+        DogLog.setOptions(DogLogOptions().withCaptureDs(true))
+
         val rightChooser = SendableChooser<Boolean>()
 
         rightChooser.setDefaultOption("left", false)
