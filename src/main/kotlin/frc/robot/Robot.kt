@@ -1,11 +1,11 @@
 package frc.robot
 
+import com.ctre.phoenix6.SignalLogger
 import com.revrobotics.util.StatusLogger.disableAutoLogging
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
-import frc.robot.Constants.ENABLE_REV_AUTOLOG
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,8 +24,12 @@ class Robot : TimedRobot() {
     override fun robotInit() {
         // Disable logging in favour of advantage kit instead
 
-        if (!ENABLE_REV_AUTOLOG) {
+        if (!Constants.AutoLog.ENABLE_REV_AUTOLOG) {
             disableAutoLogging()
+        }
+
+        if (!Constants.AutoLog.ENABLE_PHOENIX_AUTOLOG) {
+            SignalLogger.enableAutoLogging(false)
         }
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our

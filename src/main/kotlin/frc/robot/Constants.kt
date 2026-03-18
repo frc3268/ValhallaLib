@@ -46,9 +46,15 @@ object Constants {
 
     const val CAMERA_NAME = "hawkeye"
 
-    // Allow revlib to automatically log data to the robot.
-    // This may be disabled in favour of other telemetry methods
-    const val ENABLE_REV_AUTOLOG = false;
+
+    /** Allow certain data-sources to automatically log data to the robot.
+    Disabling these will force you to use the [frc.lib.logging] loggers instead.
+    Although these sources are easier to access and control, they may not have all the data the autolog sources have.
+     */
+    object AutoLog {
+        const val ENABLE_REV_AUTOLOG = false
+        const val ENABLE_PHOENIX_AUTOLOG = false
+    }
 
     enum class States { REAL, SIM, REPLAY }
 

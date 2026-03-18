@@ -1,5 +1,6 @@
 package frc.lib.camera
 
+import dev.doglog.DogLog
 import edu.wpi.first.apriltag.AprilTagFieldLayout
 import edu.wpi.first.apriltag.AprilTagFields
 import edu.wpi.first.math.Matrix
@@ -9,6 +10,7 @@ import edu.wpi.first.math.geometry.*
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.math.util.Units
+import edu.wpi.first.wpilibj.Alert
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
@@ -52,18 +54,16 @@ class Camera(name: String) {
 
     init {
         try {
-
             poseEstimator =
                 PhotonPoseEstimator(
                     AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField),
                     PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                     robotToCam
                 )
-
-
         } catch (e: IOException) {
             DriverStation.reportError("AprilTag: Failed to Load", e.stackTrace)
-            // !add some way to lock down apriltag features after this
+            DogLog.logFault("AprilTag: Failed to Load", Alert.AlertType.kError);
+            // Add some way to lock down apriltag features after this
         }
 
         if (Constants.mode == Constants.States.SIM) {
