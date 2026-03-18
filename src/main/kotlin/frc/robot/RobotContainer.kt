@@ -1,5 +1,7 @@
 package frc.robot
 
+import dev.doglog.DogLog
+import dev.doglog.DogLogOptions
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
@@ -7,16 +9,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
+import frc.lib.tankdrive.AlignToAprilTagTank
+import frc.lib.tankdrive.TankDriveIOSparkMax
 import frc.lib.tankdrive.TankDriveSubsystem
 import frc.lib.tankdrive.TankJoystickDrive
-import frc.lib.tankdrive.legacy.TankDriveIOSparkMax
-import frc.lib.tankdrive.AlignToAprilTagTank
 import frc.robot.Constants.GENERAL_TAB
 import frc.robot.commands.Routines
 import frc.robot.subsystems.shooter.ShooterIOSparkMax
 import frc.robot.subsystems.shooter.ShooterSubsystem
-import dev.doglog.DogLog;
-import dev.doglog.DogLogOptions;
 
 /**
  * This class is where the bulk of the robot should be declared. Since [Command]-based is a

@@ -15,6 +15,4 @@ interface GyroIO {
     fun zeroYaw()
 }
 
-class GyroIOInputsAutoLogged : GyroIO.GyroIOInputs() {
-
-}
+class GyroIOInputsAutoLogged : GyroIO.GyroIOInputs() { }

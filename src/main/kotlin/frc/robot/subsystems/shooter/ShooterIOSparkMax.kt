@@ -7,6 +7,8 @@ import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
 import com.revrobotics.spark.config.SparkMaxConfig
+import frc.lib.logging.SparkMaxLogging
+import frc.lib.logging.TalonLogging
 
 class ShooterIOSparkMax : IShooterIO {
     // Those who know...
@@ -21,7 +23,6 @@ class ShooterIOSparkMax : IShooterIO {
     var configIsaac: SparkMaxConfig = SparkMaxConfig()
 
     init {
-
         motorBarney.configure(
             configBarney,
             ResetMode.kResetSafeParameters,
@@ -47,6 +48,12 @@ class ShooterIOSparkMax : IShooterIO {
 
     override fun setIntakeForShooter(percentage: Double) {
         motorBarney.set(percentage)
+    }
+
+    override fun log() {
+        SparkMaxLogging.log("shooter/barney", motorBarney)
+        SparkMaxLogging.log("shooter/isaac", motorIsaac)
+        TalonLogging.log("shooter/aux", motorAuxShooter)
     }
 
     override fun stop() {

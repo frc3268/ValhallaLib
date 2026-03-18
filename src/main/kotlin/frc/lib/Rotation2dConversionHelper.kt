@@ -2,6 +2,7 @@ package frc.lib
 
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.units.Units
+import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj2.command.WaitCommand
 
 fun Double.rotation2dFromDeg() = Rotation2d.fromDegrees(this)
@@ -19,6 +20,6 @@ fun Float.rotation2dFromRot() = Rotation2d.fromRotations(this.toDouble())
 fun Int.rotation2dFromRot() = Rotation2d.fromRotations(this.toDouble())
 
 
-fun Double.toRPM() = Units.RPM.of(this)
+fun Double.toRPM(): AngularVelocity = Units.RPM.of(this)
 
 fun Double.wait() = WaitCommand(this)

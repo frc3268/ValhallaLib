@@ -1,4 +1,4 @@
-package frc.lib.tankdrive.legacy
+package frc.lib.tankdrive
 
 import com.revrobotics.PersistMode
 import com.revrobotics.ResetMode
@@ -12,7 +12,6 @@ import edu.wpi.first.units.Units
 import edu.wpi.first.units.measure.AngularVelocity
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
-import frc.lib.tankdrive.ITankDriveIO
 import frc.lib.tankdrive.TankDriveConstants.TANK_DRIVE_TAB
 
 
