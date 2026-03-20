@@ -10,14 +10,13 @@ import com.revrobotics.spark.config.SparkMaxConfig
 import frc.lib.logging.SparkMaxLogging
 import frc.lib.logging.TalonLogging
 
+
 class ShooterIOSparkMax : IShooterIO {
     // Those who know...
     private val motorBarney: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
     private val motorIsaac: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
-
-    private val bus: CANBus = CANBus.roboRIO()
-
-    val motorAuxShooter: TalonFX = TalonFX(0, bus)
+    
+    val motorAuxShooter: TalonFX = TalonFX(7, CANBus.roboRIO())
 
     var configBarney: SparkMaxConfig = SparkMaxConfig()
     var configIsaac: SparkMaxConfig = SparkMaxConfig()
@@ -43,7 +42,7 @@ class ShooterIOSparkMax : IShooterIO {
 
     override fun setShooter(percentage: Double) {
         motorIsaac.set(-percentage)
-        motorAuxShooter.set(percentage)
+        motorAuxShooter.set(-percentage)
     }
 
     override fun setIntakeForShooter(percentage: Double) {
