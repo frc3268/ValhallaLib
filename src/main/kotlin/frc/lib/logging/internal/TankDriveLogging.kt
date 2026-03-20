@@ -7,9 +7,9 @@ import frc.lib.tankdrive.TankDriveSubsystem
 class TankDriveLogging : DogLog() {
     companion object {
         fun log(key: String, drive: TankDriveSubsystem) {
-            log("$key/leftDistance", drive.io.getLeftDistance())
-            log("$key/rightDistance", drive.io.getRightDistance())
-            log("$key/pose", drive.getPose())
+            log("$key/LeftDistance", drive.io.getLeftDistance())
+            log("$key/RightDistance", drive.io.getRightDistance())
+            log("$key/Pose", drive.getPose())
         }
     }
 }

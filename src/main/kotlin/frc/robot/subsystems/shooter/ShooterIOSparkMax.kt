@@ -15,7 +15,7 @@ class ShooterIOSparkMax : IShooterIO {
     // Those who know...
     private val motorBarney: SparkMax = SparkMax(2, SparkLowLevel.MotorType.kBrushed)
     private val motorIsaac: SparkMax = SparkMax(1, SparkLowLevel.MotorType.kBrushed)
-    
+
     val motorAuxShooter: TalonFX = TalonFX(7, CANBus.roboRIO())
 
     var configBarney: SparkMaxConfig = SparkMaxConfig()
@@ -50,9 +50,9 @@ class ShooterIOSparkMax : IShooterIO {
     }
 
     override fun log() {
-        SparkMaxLogging.log("shooter/barney", motorBarney)
-        SparkMaxLogging.log("shooter/isaac", motorIsaac)
-        TalonLogging.log("shooter/aux", motorAuxShooter)
+        SparkMaxLogging.log("Shooter/Barney", motorBarney)
+        SparkMaxLogging.log("Shooter/Isaac", motorIsaac)
+        TalonLogging.log("Shooter/Aux", motorAuxShooter)
     }
 
     override fun stop() {

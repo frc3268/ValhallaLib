@@ -12,17 +12,17 @@ class SparkMaxLogging : DogLog() {
             if (!Constants.AutoLog.ENABLE_REV_AUTOLOG) {
                 log("$key/AppliedOutput", motor.appliedOutput)
                 log("$key/BusVoltage", motor.busVoltage)
-                log("$key/isFollower", motor.isFollower)
-                log("$key/outputCurrent", motor.outputCurrent, "amps")
-                log("$key/setSpeed", motor.get())
-                log("$key/motorTemperature", motor.motorTemperature)
+                log("$key/IsFollower", motor.isFollower)
+                log("$key/OutputCurrent", motor.outputCurrent, "amps")
+                log("$key/SetSpeed", motor.get())
+                log("$key/MotorTemperature", motor.motorTemperature)
 
-                log("$key/encoder/position", motor.encoder.position)
-                log("$key/encoder/velocity", motor.encoder.velocity)
+                log("$key/Encoder/Position", motor.encoder.position)
+                log("$key/Encoder/Velocity", motor.encoder.velocity)
 
                 // TODO: Use faults instead
-                SparkFaultLogging.log("$key/fault/live", motor.faults)
-                SparkFaultLogging.log("$key/fault/sticky", motor.stickyFaults)
+                SparkFaultLogging.log("$key/Fault/Live", motor.faults)
+                SparkFaultLogging.log("$key/Fault/Sticky", motor.stickyFaults)
 
                 if (motor.hasActiveFault()) {
                     logFault("$key has an active fault", Alert.AlertType.kError);

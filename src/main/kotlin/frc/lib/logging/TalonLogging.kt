@@ -8,33 +8,32 @@ class TalonLogging {
     companion object {
         fun log(key: String, motor: TalonFX) {
             if (!Constants.AutoLog.ENABLE_PHOENIX_AUTOLOG) {
+                DogLog.log("$key/Status/isAlive", motor.isAlive)
+                DogLog.log("$key/Status/isConnected", motor.isConnected)
+                DogLog.log("$key/Status/isProLicensed", motor.isProLicensed.value)
 
-                DogLog.log("$key/status/isAlive", motor.isAlive)
-                DogLog.log("$key/status/isConnected", motor.isConnected)
-                DogLog.log("$key/status/isProLicensed", motor.isProLicensed.value)
+                DogLog.log("$key/Device/AncillaryDeviceTemp", motor.ancillaryDeviceTemp.value)
+                DogLog.log("$key/Device/DeviceTemp", motor.deviceTemp.value)
+                DogLog.log("$key/Device/MotorVoltage", motor.motorVoltage.value)
+                DogLog.log("$key/Device/SupplyVoltage", motor.supplyVoltage.value)
+                DogLog.log("$key/Device/SupplyCurrent", motor.supplyCurrent.value)
 
-                DogLog.log("$key/device/ancillaryDeviceTemp", motor.ancillaryDeviceTemp.value)
-                DogLog.log("$key/device/deviceTemp", motor.deviceTemp.value)
-                DogLog.log("$key/device/motorVoltage", motor.motorVoltage.value)
-                DogLog.log("$key/device/supplyVoltage", motor.supplyVoltage.value)
-                DogLog.log("$key/device/supplyCurrent", motor.supplyCurrent.value)
-
-                DogLog.log("$key/position", motor.position.value)
-                DogLog.log("$key/velocity", motor.velocity.value)
-                DogLog.log("$key/acceleration", motor.acceleration.value)
+                DogLog.log("$key/Position", motor.position.value)
+                DogLog.log("$key/Velocity", motor.velocity.value)
+                DogLog.log("$key/Acceleration", motor.acceleration.value)
 
                 // Live Faults
                 // TODO: Implement all of the faults into another logging class.
-                DogLog.log("$key/fault/live/hardware", motor.fault_Hardware.value)
-                DogLog.log("$key/fault/live/underVoltage", motor.fault_Undervoltage.value)
-                DogLog.log("$key/fault/live/procTemp", motor.fault_ProcTemp.value)
-                DogLog.log("$key/fault/live/deviceTemp", motor.fault_DeviceTemp.value)
-                DogLog.log("$key/fault/live/overSupplyV", motor.fault_OverSupplyV.value)
-                DogLog.log("$key/fault/live/bootDuringEnable", motor.fault_BootDuringEnable.value)
-                DogLog.log("$key/fault/live/bridgeBrownout", motor.fault_BridgeBrownout.value)
-                DogLog.log("$key/fault/live/forwardHardLimit", motor.fault_ForwardHardLimit.value)
-                DogLog.log("$key/fault/live/forwardSoftLimit", motor.fault_ForwardSoftLimit.value)
-                DogLog.log("$key/fault/live/fusedSensorOutOfSync", motor.fault_FusedSensorOutOfSync.value)
+                DogLog.log("$key/Fault/Live/Hardware", motor.fault_Hardware.value)
+                DogLog.log("$key/Fault/Live/UnderVoltage", motor.fault_Undervoltage.value)
+                DogLog.log("$key/Fault/Live/ProcTemp", motor.fault_ProcTemp.value)
+                DogLog.log("$key/Fault/Live/DeviceTemp", motor.fault_DeviceTemp.value)
+                DogLog.log("$key/Fault/Live/OverSupplyV", motor.fault_OverSupplyV.value)
+                DogLog.log("$key/Fault/Live/BootDuringEnable", motor.fault_BootDuringEnable.value)
+                DogLog.log("$key/Fault/Live/BridgeBrownout", motor.fault_BridgeBrownout.value)
+                DogLog.log("$key/Fault/Live/ForwardHardLimit", motor.fault_ForwardHardLimit.value)
+                DogLog.log("$key/Fault/Live/ForwardSoftLimit", motor.fault_ForwardSoftLimit.value)
+                DogLog.log("$key/Fault/Live/FusedSensorOutOfSync", motor.fault_FusedSensorOutOfSync.value)
             }
         }
     }
