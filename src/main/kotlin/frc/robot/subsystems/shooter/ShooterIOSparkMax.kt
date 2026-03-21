@@ -7,8 +7,7 @@ import com.revrobotics.ResetMode
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
 import com.revrobotics.spark.config.SparkMaxConfig
-import frc.lib.logging.SparkMaxLogging
-import frc.lib.logging.TalonLogging
+import frc.lib.logging.ValhallaLogger
 
 
 class ShooterIOSparkMax : IShooterIO {
@@ -42,7 +41,7 @@ class ShooterIOSparkMax : IShooterIO {
 
     override fun setShooter(percentage: Double) {
         motorIsaac.set(-percentage)
-        motorAuxShooter.set(-percentage)
+        motorAuxShooter.set(-percentage * 0.8)
     }
 
     override fun setIntakeForShooter(percentage: Double) {
@@ -50,9 +49,9 @@ class ShooterIOSparkMax : IShooterIO {
     }
 
     override fun log() {
-        SparkMaxLogging.log("Shooter/Barney", motorBarney)
-        SparkMaxLogging.log("Shooter/Isaac", motorIsaac)
-        TalonLogging.log("Shooter/Aux", motorAuxShooter)
+        ValhallaLogger.log("Shooter/Barney", motorBarney)
+        ValhallaLogger.log("Shooter/Isaac", motorIsaac)
+        ValhallaLogger.log("Shooter/Aux", motorAuxShooter)
     }
 
     override fun stop() {

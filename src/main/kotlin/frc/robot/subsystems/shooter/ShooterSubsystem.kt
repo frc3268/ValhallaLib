@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import edu.wpi.first.wpilibj2.command.WaitCommand
+import frc.lib.wait
 import frc.robot.Constants
 
 class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
@@ -37,7 +37,7 @@ class ShooterSubsystem(val io: IShooterIO) : SubsystemBase() {
         runOnce {
             io.setShooter(1.0)
         },
-        WaitCommand(0.5),
+        0.5.wait(),
         runOnce {
             io.setIntakeForShooter(0.8)
         }

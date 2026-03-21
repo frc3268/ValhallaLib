@@ -13,7 +13,7 @@ import frc.lib.camera.Camera
 import frc.lib.gyro.GyroIO
 import frc.lib.gyro.GyroIOInputsAutoLogged
 import frc.lib.gyro.GyroIOKauai
-import frc.lib.logging.internal.TankDriveLogging
+import frc.lib.logging.internal.InternalValhallaLogger
 import frc.lib.rotation2dFromRad
 import frc.lib.toRPM
 import frc.robot.Constants
@@ -93,7 +93,7 @@ class TankDriveSubsystem(val io: ITankDriveIO, startingPose: Pose2d) : Subsystem
         field.robotPose = getPose()
         poseXEntry.setDouble(getPose().x)
         poseYEntry.setDouble(getPose().y)
-        TankDriveLogging.log("TankDrive", this)
+        InternalValhallaLogger.log("TankDrive", this)
 //        Logger.recordOutput("Robot/Pose", getPose())
     }
 
