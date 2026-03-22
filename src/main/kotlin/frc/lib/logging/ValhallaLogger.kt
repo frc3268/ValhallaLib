@@ -21,7 +21,7 @@ class ValhallaLogger : DogLog() {
                 log("$key/Device/MotorVoltage", motor.motorVoltage.value)
                 log("$key/Device/SupplyVoltage", motor.supplyVoltage.value)
                 log("$key/Device/SupplyCurrent", motor.supplyCurrent.value)
-
+                
                 log("$key/Position", motor.position.value)
                 log("$key/Velocity", motor.velocity.value)
                 log("$key/Acceleration", motor.acceleration.value)
@@ -38,6 +38,7 @@ class ValhallaLogger : DogLog() {
                 log("$key/Fault/Live/ForwardHardLimit", motor.fault_ForwardHardLimit.value)
                 log("$key/Fault/Live/ForwardSoftLimit", motor.fault_ForwardSoftLimit.value)
                 log("$key/Fault/Live/FusedSensorOutOfSync", motor.fault_FusedSensorOutOfSync.value)
+
             }
         }
 

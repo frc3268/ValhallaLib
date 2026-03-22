@@ -32,7 +32,7 @@ class RobotContainer {
     private val timerTelemetry = TimerTelemetry()
 
     val autoChooser = SendableChooser<Command>()
-    private val autoWait = calibrationTab.addPersistent("Auto wait", 1.0).entry
+    private val autoWait = calibrationTab.addPersistent("Auto wait", 1.10).entry
 
     val tankDrive = TankDriveSubsystem(
         TankDriveIOSparkMax(),
@@ -89,7 +89,7 @@ class RobotContainer {
         autoChooser.addOption("Do Nothing", WaitCommand(3.0))
         autoChooser.setDefaultOption(
             "Move-Back Auto",
-            Routines.basicBackAuto(tankDrive, shooter, autoWait.getDouble(1.0))
+            Routines.basicBackAuto(tankDrive, shooter) { autoWait.getDouble(1.0) }
         )
 
 //        if (Constants.mode == Constants.States.SIM) {
@@ -105,10 +105,17 @@ class RobotContainer {
         driverController.leftTrigger().onTrue(shooter.startIntake()).onFalse(shooter.stop()) // Toggle on false?
         driverController.b().onTrue(shooter.stop()) // Toggle on false?
 
-        driverController.rightTrigger().onTrue(shooter.revUpAndStartShoot()).onFalse(shooter.stop())
+        // This is a bit ugly ):
+        driverController.rightTrigger().and(driverController.x()).onTrue(
+            shooter.revUpAndStartShoot(0.8)
+        ).onFalse(shooter.stop())
 
-        Shuffleboard.getTab(Constants.GENERAL_TAB)
-            .add(AlignToAprilTagTank(tankDrive, { rightChooser.selected }))
+        driverController.rightTrigger().and(driverController.x().negate()).onTrue(
+            shooter.revUpAndStartShoot(0.6)
+        ).onFalse(shooter.stop())
+
+        Shuffleboard.getTab(GENERAL_TAB)
+            .add(AlignToAprilTagTank(tankDrive) { rightChooser.selected })
 
         tankDrive.defaultCommand = teleopCommand
 

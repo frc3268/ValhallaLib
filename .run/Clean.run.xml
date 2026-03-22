@@ -43,7 +43,7 @@
     <RunAsTest>false</RunAsTest>
     <method v="2" />
   </configuration>
-  <configuration default="false" name="Clean" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="Clean" type="GradleRunConfiguration" factoryName="Gradle" folderName="Advanced">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
